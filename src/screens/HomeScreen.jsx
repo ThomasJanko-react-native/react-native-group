@@ -17,8 +17,9 @@ const HomeContent = styled.View`
   margin-horizontal: 40px;
 `;
 
-// font-family: ${props => props.theme.primaryColor}
+// ${props => props.theme.fontFamily}
 const HomeTitle = styled.Text`
+  font-family: 'Montserrat';
   color: black;
   font-size: 30px;
   font-weight: 800;
@@ -41,19 +42,18 @@ const HomeButton = styled.TouchableOpacity`
   align-items: center;
   background-color: #EEBC73;
   border-radius: 10px;
-  opacity: 0.8;
+  opacity: 0.9;
 `;
 
 const HomeScreen = () => {
-
     const navigation = useNavigation();
 
     return (
         <HomeContainer>
             <HomeContent>
                 <HomeLogo/>
-                <View style={{marginTop: -90, marginRight: 40}}>
-                    <HomeTitle>Smart Task Management</HomeTitle>
+                <View style={{marginTop: -100, marginRight: 40}}>
+                    <HomeTitle >Smart Task Management</HomeTitle>
                     <HomeSubtitle>Check your daily task management by registering with us.</HomeSubtitle>
                 </View>
                 <HomeButton onPress={()=> navigation.navigate('TaskScreen')}>

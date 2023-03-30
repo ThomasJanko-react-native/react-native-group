@@ -22,7 +22,7 @@ const HomeLogo = () => {
 
 
 const Container = styled.View`
-  margin-top: 100px;
+  margin-top: 60px;
   align-self: center;
   justifty-content: center;
   align-items: center;
