@@ -19,7 +19,7 @@ function Routes() {
     <NavigationContainer>
         <Stack.Navigator >
          <Stack.Screen name="HomeScreen" options={{headerShown: false, headerTitleAlign: 'center', headerTintColor: 'blue',}} component={HomeScreen} />
-         <Stack.Screen name="TaskScreen" options={{headerShown: false, headerTitleAlign: 'center', headerTintColor: 'blue',}} component={TaskScreen} />
+         <Stack.Screen name="TaskScreen" options={{headerShown: true, headerTitleAlign: 'center', headerTintColor: 'blue',}} component={TaskScreen} />
         </Stack.Navigator>
     </NavigationContainer>
   </GlobalSafeAreaView>
