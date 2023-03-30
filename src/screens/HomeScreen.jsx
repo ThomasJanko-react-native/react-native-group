@@ -1,15 +1,69 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
+import HomeLogo from '../components/HomeLogo';
 import TodoList from '../components/TodoList';
+import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+
+const HomeContainer = styled.View`
+  background-color: white;
+  height: 100%;
+`;
+
+const HomeContent = styled.View`
+  width: 90%;
+  margin-horizontal: 40px;
+`;
+
+// font-family: ${props => props.theme.primaryColor}
+const HomeTitle = styled.Text`
+  color: black;
+  font-size: 30px;
+  font-weight: 800;
+`;
+
+const HomeSubtitle = styled.Text`
+  color: black;
+  margin-top: 8px;
+  font-style: italic;
+  font-size: 15px;
+  opacity: 0.6;
+`;
+
+const HomeButton = styled.TouchableOpacity`
+  position: absolute;
+  bottom: -20px;
+  right: 40px;
+  width: 40%;
+  padding: 16px;
+  align-items: center;
+  background-color: #EEBC73;
+  border-radius: 10px;
+  opacity: 0.8;
+`;
 
 const HomeScreen = () => {
+
+    const navigation = useNavigation();
+
     return (
-        <View style={{backgroundColor: 'grey', flex: 1}}>
-            <Text>Home Screen</Text>
-            <TodoList/>
-        </View>
+        <HomeContainer>
+            <HomeContent>
+                <HomeLogo/>
+                <View style={{marginTop: -90, marginRight: 40}}>
+                    <HomeTitle>Smart Task Management</HomeTitle>
+                    <HomeSubtitle>Check your daily task management by registering with us.</HomeSubtitle>
+                </View>
+                <HomeButton onPress={()=> navigation.navigate('TaskScreen')}>
+                    <Text>Continue</Text>
+                </HomeButton>
+            </HomeContent>
+        </HomeContainer>
     );
 }
+
 
 
 export default HomeScreen;
