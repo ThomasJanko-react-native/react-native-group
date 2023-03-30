@@ -4,4 +4,5 @@ export const theme = {
     backgroundColor: '#F5F5F5',
     fontSize: '16px',
     fontFamily: 'Arial, sans-serif'
+    // fontFamily: 'Montserrat, sans-serif'
   };

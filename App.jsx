@@ -5,16 +5,15 @@ import Routes from './src/config/routes';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import reducer from './src/redux/reducer';
+import {WebView} from 'react-native-webview';
 
 const store = createStore(reducer);
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Routes />
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <Routes />
+    </Provider>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
+import HomeLogo from '../components/HomeLogo';
 import TodoList from '../components/TodoList';
 import AddNewTask from './AddNewTask';
 //import AddNewTask from './AddNewTask';
