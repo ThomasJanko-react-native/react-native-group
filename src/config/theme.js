@@ -1,8 +1,7 @@
 export const theme = {
-    primaryColor: '#D68D85',
-    secondaryColor: '#6c757d',
-    textColor: '#333333',
-    utilitiesColor: '#138BF0',
+    primaryColor: '#EEBC73',
+    secondaryColor: '#F3E6DD',
+    backgroundColor: '#F5F5F5',
     fontSize: '16px',
     fontFamily: 'Arial, sans-serif'
   };
