@@ -4,6 +4,7 @@ import DateTimePickerModal from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {View, Text} from 'react-native';
 import moment from 'moment';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const TimeContainer = styled.TouchableOpacity`
   background-color: #dcdcdc;
@@ -48,13 +49,15 @@ function AddTaskTimeComp() {
 
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
           <TimeText>{formattedTime}</TimeText>
-          <Icon
-            name="right"
-            size={24}
-            color="black"
-            onPress={() => console.log('right button pressed')}
-            style={{marginLeft: 8}}
-          />
+          <TouchableOpacity>
+            <Icon
+              name="right"
+              size={24}
+              color="black"
+              onPress={() => console.log('right button pressed')}
+              style={{marginLeft: 8}}
+            />
+          </TouchableOpacity>
         </View>
       </TimeContainer>
       {showPicker && (

@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import DateTimePickerModal from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {View, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const DateContainer = styled.TouchableOpacity`
   background-color: #dcdcdc;
@@ -48,13 +49,14 @@ function AddTaskDateComp() {
         </View>
         <DateTextContainer>
           <DateText>{selectedDate.toLocaleDateString()}</DateText>
-
-          <Icon
-            name="right"
-            size={24}
-            color="black"
-            onPress={() => console.log('right button pressed')}
-          />
+          <TouchableOpacity>
+            <Icon
+              name="right"
+              size={24}
+              color="black"
+              onPress={() => console.log('right button pressed')}
+            />
+          </TouchableOpacity>
         </DateTextContainer>
       </DateContainer>
       {showPicker && (
