@@ -4,12 +4,15 @@ import DateTimePickerModal from '@react-native-community/datetimepicker';
 
 const TimeContainer = styled.TouchableOpacity`
   background-color: #dcdcdc;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 18px;
+  padding: 18px;
+  padding-left: 20px;
+  opacity: 0.7;
 `;
 
 const TimeText = styled.Text`
   color: black;
+  font-weight: 700;
 `;
 
 function AddTaskTimeComp() {

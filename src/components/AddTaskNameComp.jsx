@@ -5,11 +5,11 @@ import styled from 'styled-components/native';
 const StyledInput = styled.TextInput`
   color: grey;
   background-color: #eaeaea;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  width: 85%;
-  max-width: 400px;
+  border-radius: 18px;
+  padding: 14px;
+  color: black;
+  padding-left: 20px;
+  width: 100%;
 `;
 
 const Container = styled.View`
@@ -19,7 +19,7 @@ const Container = styled.View`
 function AddTaskNameComp() {
   return (
     <Container>
-      <StyledInput placeholder="Task Name" placeholderTextColor="#C7C7CD" />
+      <StyledInput placeholder="Task name" placeholderTextColor="#C7C7CD" />
     </Container>
   );
 }
