@@ -10,7 +10,7 @@ import {
 function AddNewStepBtn() {
   return (
     <Container>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log('adding a new task')}>
         <Content>+ New Step</Content>
       </TouchableOpacity>
     </Container>
@@ -22,6 +22,6 @@ const Container = styled.View`
 const Content = styled.Text`
   color: black;
   font-weight: 600;
-  `;
+`;
 
 export default AddNewStepBtn;

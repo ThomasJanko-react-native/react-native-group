@@ -18,8 +18,8 @@ function AddNewTaskScreen() {
       <Spacer height={40} />
       <AddTaskStepComp title={'Write your task here...'} />
       <Spacer height={10} />
-      <AddTaskStepComp title={'Write your task here...'} />
-      <Spacer height={10} />
+      {/* <AddTaskStepComp title={'Write your task here...'} />
+      <Spacer height={10} /> */}
       <AddNewStepBtn />
       <Spacer height={30} />
       <AddTaskTimeComp />
@@ -40,7 +40,7 @@ const Title = styled.Text`
   font-weight: bold;
   font-size: 24px;
   text-align: center;
-  color: black
+  color: black;
 `;
 
 const Spacer = styled.View`

@@ -14,7 +14,6 @@ const ButtonsContainer = styled.View`
   overflow: hidden;
   align-items: center;
   width: 100%;
-
 `;
 
 const CancelButton = styled.TouchableOpacity`
@@ -22,7 +21,7 @@ const CancelButton = styled.TouchableOpacity`
   padding: 16px;
   align-items: center;
   background-color: white;
-  border: 1px solid #EEBC73;
+  border: 1px solid #eebc73;
   border-radius: 10px;
   opacity: 0.9;
 `;
@@ -30,29 +29,28 @@ const SaveButton = styled.TouchableOpacity`
   width: 45%;
   padding: 16px;
   align-items: center;
-  background-color: #EEBC73;
+  background-color: #eebc73;
   border-radius: 10px;
   opacity: 0.9;
 `;
 
 const ButtonTextCancel = styled.Text`
-color: #EEBC73;
-font-weight: bold;
+  color: #eebc73;
+  font-weight: bold;
 `;
 const ButtonTextSave = styled.Text`
-color: white;
-font-weight: bold;
+  color: white;
+  font-weight: bold;
 `;
-
 
 function CancelAndAddTaskBtns() {
   return (
     <ButtonsContainer>
-      <CancelButton>
-          <ButtonTextCancel>Cancel</ButtonTextCancel>
+      <CancelButton onPress={() => console.log('task canceled')}>
+        <ButtonTextCancel>Cancel</ButtonTextCancel>
       </CancelButton>
-      <SaveButton>
-          <ButtonTextSave>Save task</ButtonTextSave>
+      <SaveButton onPress={() => console.log('task saved')}>
+        <ButtonTextSave>Save task</ButtonTextSave>
       </SaveButton>
     </ButtonsContainer>
   );
