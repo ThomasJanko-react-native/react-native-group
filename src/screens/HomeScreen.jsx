@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import AddNewStepBtn from '../components/AddNewStepBtn';
 import HomeLogo from '../components/HomeLogo';
 import TodoList from '../components/TodoList';
 import styled from 'styled-components';
