@@ -22,7 +22,11 @@ const TimeText = styled.Text`
   color: black;
   font-weight: 700;
 `;
-
+const TextTime = styled.Text`
+  margin-left: 8px;
+  color: black;
+  font-weight: 700;
+`;
 function AddTaskTimeComp() {
   const [showPicker, setShowPicker] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
@@ -44,7 +48,7 @@ function AddTaskTimeComp() {
             color="black"
             onPress={() => console.log('Check button pressed')}
           />
-          <Text style={{marginLeft: 8}}>Task Time</Text>
+          <TextTime>Task Time</TextTime>
         </View>
 
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>

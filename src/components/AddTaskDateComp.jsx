@@ -26,6 +26,12 @@ const DateText = styled.Text`
   font-weight: 700;
 `;
 
+const TextDate = styled.Text`
+  margin-left: 8px;
+  color: black;
+  font-weight: 700;
+`;
+
 function AddTaskDateComp() {
   const [showPicker, setShowPicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -45,7 +51,7 @@ function AddTaskDateComp() {
             color="black"
             onPress={() => console.log('calendar button pressed')}
           />
-          <Text style={{marginLeft: 8}}>Task Date</Text>
+          <TextDate>Task Date</TextDate>
         </View>
         <DateTextContainer>
           <DateText>{selectedDate.toLocaleDateString()}</DateText>
