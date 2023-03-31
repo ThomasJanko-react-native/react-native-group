@@ -32,6 +32,8 @@ function AddTaskDateComp() {
           mode="date"
           display="calendar"
           onChange={(event, date) => handleConfirm(date)}
+          style={{backgroundColor: '#EEBC73'}}
+          textColor="#FFFFFF"
         />
       )}
     </>

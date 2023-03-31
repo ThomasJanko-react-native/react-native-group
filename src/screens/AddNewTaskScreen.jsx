@@ -1,15 +1,15 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput} from 'react-native';
-import AddTaskDateComp from '../../components/AddTaskDateComp';
-import AddTaskNameComp from '../../components/AddTaskNameComp';
-import AddTaskStepComp from '../../components/AddTaskStepComp';
-import AddTaskTimeComp from '../../components/AddTaskTimeComp';
-import CancelAndAddTaskBtns from '../../components/CancelAndAddTaskBtns';
+import AddTaskDateComp from '../components/AddTaskDateComp';
+import AddTaskNameComp from '../components/AddTaskNameComp';
+import AddTaskStepComp from '../components/AddTaskStepComp';
+import AddTaskTimeComp from '../components/AddTaskTimeComp';
+import CancelAndAddTaskBtns from '../components/CancelAndAddTaskBtns';
 
 import styled from 'styled-components/native';
-import AddNewStepBtn from '../../components/AddNewStepBtn';
+import AddNewStepBtn from '../components/AddNewStepBtn';
 
-function AddNewTask() {
+function AddNewTaskScreen() {
   return (
     <Container>
       <Title>Add New Task</Title>
@@ -46,4 +46,4 @@ const Spacer = styled.View`
   height: ${props => props.height}px;
 `;
 
-export default AddNewTask;
+export default AddNewTaskScreen;
