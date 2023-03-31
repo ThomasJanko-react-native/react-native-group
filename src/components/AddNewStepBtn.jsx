@@ -21,6 +21,7 @@ const Container = styled.View`
 `;
 const Content = styled.Text`
   color: black;
-`;
+  font-weight: 600;
+  `;
 
 export default AddNewStepBtn;

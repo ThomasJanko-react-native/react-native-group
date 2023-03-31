@@ -2,10 +2,10 @@ import React from 'react';
 import {View, StyleSheet, Text, TextInput} from 'react-native';
 import styled from 'styled-components/native';
 
-function AddTaskStepComp() {
+function AddTaskStepComp({title}) {
   return (
     <Container>
-      <StyledInput placeholder="Task Name" placeholderTextColor="#C7C7CD" />
+      <StyledInput placeholder={title} placeholderTextColor="#C7C7CD" />
     </Container>
   );
 }
@@ -18,10 +18,10 @@ const StyledInput = styled.TextInput`
   color: grey;
   background-color: #eaeaea;
   border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  width: 85%;
-  max-width: 400px;
+  color: black;
+  padding: 14px;
+  padding-left: 20px;
+  width: 100%;
 `;
 
 export default AddTaskStepComp;
