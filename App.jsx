@@ -1,19 +1,30 @@
-import React, {useEffect} from 'react';
-import {theme} from './src/config/theme';
+import React, { useEffect, useState } from 'react';
+import {lightTheme, darkTheme} from './src/config/theme';
 import {ThemeProvider} from 'styled-components';
 import Routes from './src/config/routes';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import reducer from './src/redux/reducer';
+import themeReducer from './src/redux/themeReducer';
+import {useSelector} from 'react-redux';
 
-const store = createStore(reducer);
+const store = createStore(themeReducer);
+
+const EntryPoint = () => {
+  const theme = useSelector(state => state);
+
+  return (
+    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+      <Routes/>
+    </ThemeProvider>
+  )
+};
+
 
 function App() {
+
   return (
       <Provider store={store}>
-      <ThemeProvider theme={theme}>
-          <Routes/>
-      </ThemeProvider>
+        <EntryPoint/>
       </Provider>
   );
 }

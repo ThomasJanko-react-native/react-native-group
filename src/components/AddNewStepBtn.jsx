@@ -20,7 +20,7 @@ const Container = styled.View`
   align-items: center;
 `;
 const Content = styled.Text`
-  color: black;
+  color: ${props => props.theme.textColor};
   font-weight: 600;
 `;
 

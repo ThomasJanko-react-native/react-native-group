@@ -4,8 +4,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
-import {useNavigation} from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import { Text, TouchableOpacity } from 'react-native';
+import { lightTheme, darkTheme } from '../config/theme';
+import { setTheme } from '../redux/actions/themeMode';
+import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 
 const fakeData = [
   {taskName: 'Task one', status: 'pending'},
@@ -15,10 +20,15 @@ const fakeData = [
 ];
 
 const TasksScreen = () => {
+  
+
   const navigation = useNavigation();
 
   const [activeFilter, setActiveFilter] = useState('ongoing');
   const [tasksList, setTasksList] = useState(fakeData);
+  const dispatch = useDispatch();
+  const theme = useSelector(state => state);
+  
 
   useEffect(() => {
     setTasksList(fakeData.filter(t => t.status === activeFilter));
@@ -34,10 +44,13 @@ const TasksScreen = () => {
     <Container>
       <NavBar>
         <IconContainer>
-          <NotifIcon name="notifications-none" size={30} color="black" />
+          <TouchableOpacity  >
+          <NotifIcon name="notifications-none" size={30} color={theme == 'dark'? 'white' : 'black'} />
+          </TouchableOpacity>
         </IconContainer>
+        <ThemeSwitcher/>
         <IconContainer>
-          <Icon name="md-search" size={30} color="black" />
+          <Icon name="md-search" size={30} color={theme == 'dark'? 'white' : 'black'} />
         </IconContainer>
       </NavBar>
 
@@ -86,7 +99,7 @@ const TasksScreen = () => {
 
 const Container = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: ${props => props.theme.backgroundColor};
 `;
 
 const NavBar = styled.View`
@@ -117,14 +130,14 @@ const WelcomeSection = styled.View`
 const Title = styled.Text`
   font-size: 15px;
   font-weight: 500;
-  color: black;
+  color: ${props => props.theme.textColor};
 `;
 
 const Subtitle = styled.Text`
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: black;
+  color: ${props => props.theme.textColor}
 `;
 
 const Description = styled.Text`

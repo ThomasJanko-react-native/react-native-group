@@ -1,10 +1,13 @@
 import { ADD_TODO, REMOVE_TODO } from "./actions/todo";
+import { SET_THEME } from "./actions/themeMode";
 
 const initialState = {
   //states go here
     count: 0,
     todos: [],
   }
+
+  
   
   const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +24,9 @@ const initialState = {
         ...state,
         todos: state.todos.filter((t) => t !== action.payload.todo),
       }
+
+      case 'SET_THEME':
+      return action.theme;
 
 
       default:
