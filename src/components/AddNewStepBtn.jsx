@@ -7,11 +7,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 function AddNewStepBtn() {
+
+  const {t} = useTranslation();
+
   return (
     <Container>
       <TouchableOpacity onPress={() => console.log('adding a new task')}>
-        <Content>+ New Step</Content>
+        <Content>{t('buttons.newStep')}</Content>
       </TouchableOpacity>
     </Container>
   );

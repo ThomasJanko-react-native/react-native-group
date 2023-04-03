@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {View, TextInput} from 'react-native';
 import styled from 'styled-components/native';
 
@@ -17,9 +18,11 @@ const Container = styled.View`
 `;
 
 function AddTaskNameComp() {
+
+  const {t} = useTranslation();
   return (
     <Container>
-      <StyledInput placeholder="Task name" placeholderTextColor="#C7C7CD" />
+      <StyledInput placeholder={t('taskName')} placeholderTextColor="#C7C7CD" />
     </Container>
   );
 }
