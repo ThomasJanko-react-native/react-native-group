@@ -5,7 +5,7 @@ module.exports = {
       desc: "Here are the details of your all tasks. You can check details anytime and anywhere.",
       progress: "Progress",
     
-      state:{
+      states:{
         onGoing: "Ongoing",
         pending: "Pending",
         completed: "Completed"
