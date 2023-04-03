@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {Dimensions, Button, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 const windowWidth = Dimensions.get('window').width;
 
 const ButtonsContainer = styled.View`
@@ -44,16 +45,17 @@ const ButtonTextSave = styled.Text`
 `;
 
 function CancelAndAddTaskBtns() {
+  const {t} = useTranslation();
 
   const navigation = useNavigation()
 
   return (
     <ButtonsContainer>
       <CancelButton onPress={() => navigation.navigate('TaskScreen')}>
-        <ButtonTextCancel>Cancel</ButtonTextCancel>
+        <ButtonTextCancel>{t('buttons.cancel')}</ButtonTextCancel>
       </CancelButton>
       <SaveButton onPress={() => navigation.navigate('TaskScreen')}>
-        <ButtonTextSave>Save task</ButtonTextSave>
+        <ButtonTextSave>{t('buttons.save')}</ButtonTextSave>
       </SaveButton>
     </ButtonsContainer>
   );

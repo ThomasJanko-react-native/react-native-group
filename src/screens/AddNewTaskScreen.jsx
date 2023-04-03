@@ -8,15 +8,19 @@ import CancelAndAddTaskBtns from '../components/CancelAndAddTaskBtns';
 
 import styled from 'styled-components/native';
 import AddNewStepBtn from '../components/AddNewStepBtn';
+import { useTranslation } from 'react-i18next';
 
 function AddNewTaskScreen() {
+
+  const {t} = useTranslation();
+
   return (
     <Container>
-      <Title>Add New Task</Title>
+      <Title>{t('taskTitle')} </Title>
       <Spacer height={60} />
       <AddTaskNameComp />
       <Spacer height={40} />
-      <AddTaskStepComp title={'Write your task here...'} />
+      <AddTaskStepComp title={t('taskName')}  />
       <Spacer height={10} />
       
       <AddNewStepBtn />

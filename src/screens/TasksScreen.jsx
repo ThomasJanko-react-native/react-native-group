@@ -11,6 +11,8 @@ import { setTheme } from '../redux/actions/themeMode';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ThemeSwitcher from '../components/ThemeSwitcher';
+import { useTranslation } from 'react-i18next';
+import i18n from '../config/translations/translation';
 
 const fakeData = [
   {taskName: 'Task one', status: 'pending'},
@@ -20,15 +22,16 @@ const fakeData = [
 ];
 
 const TasksScreen = () => {
-  
 
+  const {t} = useTranslation();
+  
   const navigation = useNavigation();
 
   const [activeFilter, setActiveFilter] = useState('ongoing');
   const [tasksList, setTasksList] = useState(fakeData);
   const dispatch = useDispatch();
   const theme = useSelector(state => state);
-  
+  const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
     setTasksList(fakeData.filter(t => t.status === activeFilter));
@@ -40,26 +43,40 @@ const TasksScreen = () => {
     setTasksList(fakeData.filter(t => t.status === filter));
   };
 
+  const changeLanguage = () => {
+    const newLanguage = i18n.language === 'en' ? 'fr' : 'en';
+    i18n.changeLanguage(newLanguage);
+    console.log(i18n.language)
+    setUpdateCount(updateCount + 1);
+  };
+
   return (
     <Container>
       <NavBar>
         <IconContainer>
-          <TouchableOpacity  >
+          <TouchableOpacity>
           <NotifIcon name="notifications-none" size={30} color={theme == 'dark'? 'white' : 'black'} />
           </TouchableOpacity>
         </IconContainer>
         <ThemeSwitcher/>
         <IconContainer>
+        <TouchableOpacity>
           <Icon name="md-search" size={30} color={theme == 'dark'? 'white' : 'black'} />
+          </TouchableOpacity>
+        </IconContainer>
+        <IconContainer>
+        <TouchableOpacity onPress={changeLanguage}>
+        {/* <Button onPress={changeLanguage} title={t('changeLanguage')} /> */}
+          <Icon name="language" size={30} color={theme == 'dark'? 'white' : 'black'} />
+        </TouchableOpacity>
         </IconContainer>
       </NavBar>
 
       <WelcomeSection>
-        <Title>Welcome Back!</Title>
-        <Subtitle>My Tasks</Subtitle>
+        <Title>{t('welcome')}</Title>
+        <Subtitle>{t('tasks')} </Subtitle>
         <Description>
-          Here are the details of your all tasks. You can check details anytime
-          and anywhere.
+        {t('desc')}
         </Description>
       </WelcomeSection>
 
@@ -67,18 +84,18 @@ const TasksScreen = () => {
         <FilterButton
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
-          <FilterText active={activeFilter === 'ongoing'}>Ongoing</FilterText>
+          <FilterText active={activeFilter === 'ongoing'}>{t('states.onGoing')}</FilterText>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'pending'}
           onPress={() => handleFilterPress('pending')}>
-          <FilterText active={activeFilter === 'pending'}>Pending</FilterText>
+          <FilterText active={activeFilter === 'pending'}>{t('states.pending')}</FilterText>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'completed'}
           onPress={() => handleFilterPress('completed')}>
           <FilterText active={activeFilter === 'completed'}>
-            Completed
+          {t('states.completed')}
           </FilterText>
         </FilterButton>
       </FilterSection>

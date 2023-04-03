@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {View, Text} from 'react-native';
 import moment from 'moment';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 
 const TimeContainer = styled.TouchableOpacity`
   background-color: #dcdcdc;
@@ -28,6 +29,9 @@ const TextTime = styled.Text`
   font-weight: 700;
 `;
 function AddTaskTimeComp() {
+
+  const {t} = useTranslation();
+
   const [showPicker, setShowPicker] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
 
@@ -48,7 +52,7 @@ function AddTaskTimeComp() {
             color="black"
             onPress={() => console.log('Check button pressed')}
           />
-          <TextTime>Task Time</TextTime>
+          <TextTime>{t('taskTime')}</TextTime>
         </View>
 
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
