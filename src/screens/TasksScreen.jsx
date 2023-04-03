@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import { Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import { useTranslation } from 'react-i18next';
 import i18n from '../config/translations/translation';
+import { initNotification, onDisplayNotification } from '../config/messages';
 
 const fakeData = [
   {taskName: 'Task one', status: 'pending'},
@@ -32,6 +33,7 @@ const TasksScreen = () => {
   const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
+    initNotification();
     setTasksList(fakeData.filter(t => t.status === activeFilter));
   }, []);
 
@@ -52,7 +54,7 @@ const TasksScreen = () => {
     <Container>
       <NavBar>
         <IconContainer>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => onDisplayNotification('Notification',`Here is a notification`,)}>
           <NotifIcon name="notifications-none" size={30} color={theme == 'dark'? 'white' : 'black'} />
           </TouchableOpacity>
         </IconContainer>
