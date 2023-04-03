@@ -4,6 +4,7 @@ import backend from "i18next-http-backend";
 import {Platform, NativeModules } from 'react-native';
 import en from './en';
 import fr from './fr';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getDeviceLang = () => {
   const appLanguage =
@@ -58,6 +59,7 @@ const resources = {
   .use(backend)
   .use(initReactI18next)
   .init({
+    compatibilityJSON: 'v3',
     resources,
     fallbackLng: 'en',
     debug: true,

@@ -6,8 +6,6 @@ import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import { Text, TouchableOpacity } from 'react-native';
-import { lightTheme, darkTheme } from '../config/theme';
-import { setTheme } from '../redux/actions/themeMode';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ThemeSwitcher from '../components/ThemeSwitcher';
