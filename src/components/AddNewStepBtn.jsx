@@ -1,16 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import { useTranslation } from 'react-i18next';
+import {TouchableOpacity} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 function AddNewStepBtn() {
-
   const {t} = useTranslation();
 
   return (

@@ -19,8 +19,7 @@ import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useSelector } from 'react-redux';
-
+import {useSelector} from 'react-redux';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -77,9 +76,14 @@ function AddNewTaskScreen() {
       <AddTaskDateComp />
       <Spacer height={20} />
 
-      {image && <ImagePhoto source={{uri: image}}  />}
+      {image && <ImagePhoto source={{uri: image}} />}
       <TouchableOpacityCamera>
-        <Icon name="camera" size={30}  color={theme == 'dark'? 'white' : 'black'} onPress={takePicture} />
+        <Icon
+          name="camera"
+          size={30}
+          color={theme == 'dark' ? 'white' : 'black'}
+          onPress={takePicture}
+        />
       </TouchableOpacityCamera>
 
       <Spacer height={30} />
@@ -107,17 +111,17 @@ const Spacer = styled.View`
 `;
 
 const ImagePhoto = styled.Image`
-align-self: center;
-border-radius: 10px;
-width: 140;
-height: 100;
-margin-bottom: 20px;
+  align-self: center;
+  border-radius: 10px;
+  width: 140;
+  height: 100;
+  margin-bottom: 20px;
 `;
 
 const TouchableOpacityCamera = styled.TouchableOpacity`
-border-radius: 50px;
-align-self: center;
-margin-bottom: 20px;
+  border-radius: 50px;
+  align-self: center;
+  margin-bottom: 20px;
 `;
 
 export default AddNewTaskScreen;

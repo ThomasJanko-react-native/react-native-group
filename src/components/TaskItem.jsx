@@ -21,7 +21,7 @@ const TaskItem = ({task}) => {
 const Container = styled.View`
   width: 250px;
   height: 250px;
-  background-color: #f3e6dd;
+  background-color: ${props => props.theme.secondaryColor};
   padding: 20px;
   border-radius: 30px;
 `;
@@ -39,8 +39,8 @@ const Date = styled.Text`
 `;
 
 const WeeksLeft = styled.Text`
-  color: #eebc73;
-  background-color: white;
+  color: ${props => props.theme.primaryColor};
+  background-color: ${props => props.theme.whiteColor};
   font-size: 13px;
   padding: 5px 10px;
   border-radius: 50px;
@@ -55,7 +55,7 @@ const TitleBlock = styled.View`
 
 const Title = styled.Text`
   font-size: 25px;
-  color: black;
+  color: ${props => props.theme.textColor};
 `;
 
 const Subtitle = styled.Text`

@@ -5,11 +5,9 @@ import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 
 const StyledInput = styled.TextInput`
-  color: grey;
-  background-color: #eaeaea;
-  border-radius: 18px;
+  background-color: ${props => props.theme.itemBackgroundColor};
+  border-radius: 15px;
   padding: 14px;
-  color: black;
   padding-left: 20px;
   width: 100%;
 `;

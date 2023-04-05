@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import styled from 'styled-components/native';
 
 const CustomProgressBar = () => {
@@ -23,7 +23,7 @@ const ProgressBarContainer = styled.View`
 
 const ProgressBar = styled.View`
   height: 5px;
-  background-color: white;
+  background-color: ${props => props.theme.whiteColor};
   width: 100%;
   border-radius: 20px;
 `;
@@ -31,7 +31,7 @@ const ProgressBar = styled.View`
 const ProgressBarUpper = styled.View`
   height: 5px;
   position: absolute;
-  background-color: #eebc73;
+  background-color: ${props => props.theme.primaryColor};
   width: 30%;
   border-radius: 20px;
 `;
@@ -41,7 +41,7 @@ const ProgressLabel = styled.Text`
   left: 0;
   top: -25px;
   font-size: 14px;
-  color: black;
+  color: ${props => props.theme.textColor};
   font-weight: bold;
 `;
 
@@ -51,7 +51,7 @@ const Percentage = styled.Text`
   right: 0;
   bottom: -25px;
   font-size: 14px;
-  color: black;
+  color: ${props => props.theme.textColor};
 `;
 
 export default CustomProgressBar;

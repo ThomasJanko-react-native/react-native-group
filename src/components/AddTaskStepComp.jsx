@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -35,10 +34,8 @@ const Container = styled.View`
 `;
 
 const StyledInput = styled.TextInput`
-  color: grey;
-  background-color: #eaeaea;
-  border-radius: 10px;
-  color: black;
+  background-color: ${props => props.theme.itemBackgroundColor};
+  border-radius: 15px;
   padding: 14px;
   padding-left: 20px;
   width: 100%;
