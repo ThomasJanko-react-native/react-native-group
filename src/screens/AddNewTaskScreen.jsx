@@ -64,7 +64,7 @@ function AddNewTaskScreen() {
   return (
     <Container>
       <Title>{t('taskTitle')}</Title>
-      <Spacer height={60} />
+      <Spacer height={40} />
       <AddTaskNameComp />
       <Spacer height={40} />
       <AddTaskStepComp title={t('taskName')} />
@@ -91,6 +91,8 @@ function AddNewTaskScreen() {
 const Container = styled.View`
   margin: 20px;
   padding: 20px;
+  height: 100%;
+  position: relative;
 `;
 
 const Title = styled.Text`
