@@ -1,57 +1,3 @@
-// import React from 'react';
-// import {View, StyleSheet, Text, TextInput} from 'react-native';
-// import AddTaskDateComp from '../components/AddTaskDateComp';
-// import AddTaskNameComp from '../components/AddTaskNameComp';
-// import AddTaskStepComp from '../components/AddTaskStepComp';
-// import AddTaskTimeComp from '../components/AddTaskTimeComp';
-// import CancelAndAddTaskBtns from '../components/CancelAndAddTaskBtns';
-
-// import styled from 'styled-components/native';
-// import AddNewStepBtn from '../components/AddNewStepBtn';
-// import { useTranslation } from 'react-i18next';
-
-// function AddNewTaskScreen() {
-
-//   const {t} = useTranslation();
-
-//   return (
-//     <Container>
-//       <Title>{t('taskTitle')} </Title>
-//       <Spacer height={60} />
-//       <AddTaskNameComp />
-//       <Spacer height={40} />
-//       <AddTaskStepComp title={t('taskName')}  />
-//       <Spacer height={10} />
-
-//       <AddNewStepBtn />
-//       <Spacer height={30} />
-//       <AddTaskTimeComp />
-//       <Spacer height={30} />
-//       <AddTaskDateComp />
-//       <Spacer height={90} />
-//       <CancelAndAddTaskBtns />
-//     </Container>
-//   );
-// }
-
-// const Container = styled.View`
-//   margin: 20px;
-//   padding: 20px;
-// `;
-
-// const Title = styled.Text`
-//   font-weight: bold;
-//   font-size: 24px;
-//   text-align: center;
-//   color: ${props => props.theme.textColor};
-// `;
-
-// const Spacer = styled.View`
-//   height: ${props => props.height}px;
-// `;
-
-// export default AddNewTaskScreen;
-
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -61,6 +7,7 @@ import {
   Button,
   Image,
   PermissionsAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import AddTaskDateComp from '../components/AddTaskDateComp';
 import AddTaskNameComp from '../components/AddTaskNameComp';
@@ -71,10 +18,14 @@ import AddNewStepBtn from '../components/AddNewStepBtn';
 import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
+
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
   const [image, setImage] = useState(null);
+  const theme = useSelector(state => state);
 
   async function requestCameraPermission() {
     try {
@@ -124,10 +75,12 @@ function AddNewTaskScreen() {
       <AddTaskTimeComp />
       <Spacer height={30} />
       <AddTaskDateComp />
-      <Spacer height={90} />
+      <Spacer height={20} />
 
-      {image && <Image source={{uri: image}} style={{width: 25, height: 25}} />}
-      <Button title="ajouter une photo" onPress={takePicture} />
+      {image && <ImagePhoto source={{uri: image}}  />}
+      <TouchableOpacityCamera>
+        <Icon name="camera" size={30}  color={theme == 'dark'? 'white' : 'black'} onPress={takePicture} />
+      </TouchableOpacityCamera>
 
       <Spacer height={30} />
       <CancelAndAddTaskBtns />
@@ -149,6 +102,20 @@ const Title = styled.Text`
 
 const Spacer = styled.View`
   height: ${props => props.height}px;
+`;
+
+const ImagePhoto = styled.Image`
+align-self: center;
+border-radius: 10px;
+width: 140;
+height: 100;
+margin-bottom: 20px;
+`;
+
+const TouchableOpacityCamera = styled.TouchableOpacity`
+border-radius: 50px;
+align-self: center;
+margin-bottom: 20px;
 `;
 
 export default AddNewTaskScreen;
