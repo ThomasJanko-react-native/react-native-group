@@ -10,7 +10,7 @@ const TaskItem = ({task}) => {
         <WeeksLeft>3 week left</WeeksLeft>
       </Header>
       <TitleBlock>
-        <Title>Task 1</Title>
+        <Title>Task</Title>
         <Subtitle>{task.taskName}</Subtitle>
       </TitleBlock>
       <CustomProgressBar />

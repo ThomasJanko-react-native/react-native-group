@@ -48,7 +48,7 @@ const ButtonTextSave = styled.Text`
   font-weight: bold;
 `;
 
-function CancelAndAddTaskBtns() {
+function CancelAndAddTaskBtns({handleSaveTask}) {
   const {t} = useTranslation();
 
   const navigation = useNavigation();
@@ -58,7 +58,7 @@ function CancelAndAddTaskBtns() {
       <CancelButton onPress={() => navigation.navigate('TaskScreen')}>
         <ButtonTextCancel>{t('buttons.cancel')}</ButtonTextCancel>
       </CancelButton>
-      <SaveButton onPress={() => navigation.navigate('TaskScreen')}>
+      <SaveButton onPress={handleSaveTask}>
         <ButtonTextSave>{t('buttons.save')}</ButtonTextSave>
       </SaveButton>
     </ButtonsContainer>

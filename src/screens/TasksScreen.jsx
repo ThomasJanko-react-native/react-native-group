@@ -5,20 +5,12 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
-import {Text, TouchableOpacity} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
-
-const fakeData = [
-  {taskName: 'Task one', status: 'pending'},
-  {taskName: 'Task eleven', status: 'ongoing'},
-  {taskName: 'Task two', status: 'completed'},
-  {taskName: 'Task three', status: 'ongoing'},
-];
 
 const TasksScreen = () => {
   const {t} = useTranslation();
@@ -26,26 +18,23 @@ const TasksScreen = () => {
   const navigation = useNavigation();
 
   const [activeFilter, setActiveFilter] = useState('ongoing');
-  const [tasksList, setTasksList] = useState(fakeData);
-  const dispatch = useDispatch();
-  const theme = useSelector(state => state);
   const [updateCount, setUpdateCount] = useState(0);
+  const theme = useSelector(state => state.themeReducer);
+  const tasksList = useSelector(state => state.rootReducer.todos);
 
   useEffect(() => {
     initNotification();
-    setTasksList(fakeData.filter(t => t.status === activeFilter));
+
+    console.log(tasksList);
   }, []);
 
   const handleFilterPress = filter => {
     setActiveFilter(filter);
-
-    setTasksList(fakeData.filter(t => t.status === filter));
   };
 
   const changeLanguage = () => {
     const newLanguage = i18n.language === 'en' ? 'fr' : 'en';
     i18n.changeLanguage(newLanguage);
-    console.log(i18n.language);
     setUpdateCount(updateCount + 1);
   };
 
@@ -76,7 +65,6 @@ const TasksScreen = () => {
         </IconContainer>
         <IconContainer>
           <TouchableOpacity onPress={changeLanguage}>
-            {/* <Button onPress={changeLanguage} title={t('changeLanguage')} /> */}
             <Icon
               name="language"
               size={30}
@@ -117,7 +105,7 @@ const TasksScreen = () => {
       </FilterSection>
 
       <Carousel
-        data={tasksList}
+        data={tasksList.filter(t => t.status === activeFilter)}
         renderItem={({item}) => <TaskItem task={item} />}
         sliderWidth={400}
         itemWidth={250}

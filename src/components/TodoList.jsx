@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { addTodo, remove_todo } from "../redux/actions/todo";
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState} from 'react';
+import {addTodo, remove_todo} from '../redux/actions/todo';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
-import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 const TodoList = () => {
-    const dispatch = useDispatch();
-    const todos = useSelector((state) => state.todos);
-    const [newTodo, setNewTodo] = useState("");
+  const dispatch = useDispatch();
+  const todos = useSelector(state => state.rootReducer);
+  const [newTodo, setNewTodo] = useState('');
 
-  const handleNewTodoChange = (event) => {
+  const handleNewTodoChange = event => {
     setNewTodo(event);
   };
 
@@ -20,11 +20,10 @@ const TodoList = () => {
     }
   };
 
-  const handleTodoDelete = (todoToDelete) => {
+  const handleTodoDelete = todoToDelete => {
     // const newTodos = todos.filter((todo) => todo !== todoToDelete);
     // setTodos(newTodos);
     dispatch(remove_todo(todoToDelete));
-    
   };
 
   return (
@@ -32,26 +31,25 @@ const TodoList = () => {
       <Title>Ma liste de tâches</Title>
       <Form>
         <Label>Nouvelle tâche :</Label>
-        <Input
-          value={newTodo}
-          onChangeText={handleNewTodoChange}
-        />
+        <Input value={newTodo} onChangeText={handleNewTodoChange} />
         <Button title="Ajouter" onPress={handleNewTodoSubmit} />
       </Form>
       <List
         data={todos}
-        keyExtractor={(todo) => todo}
-        renderItem={({ item: todo }) => (
+        keyExtractor={todo => todo}
+        renderItem={({item: todo}) => (
           <Item>
             <TodoText>{todo}</TodoText>
-            <DeleteButton title="Supprimer" onPress={() => handleTodoDelete(todo)} />
+            <DeleteButton
+              title="Supprimer"
+              onPress={() => handleTodoDelete(todo)}
+            />
           </Item>
         )}
       />
     </Container>
   );
 };
-
 
 const Container = styled.View`
   padding: 20px;

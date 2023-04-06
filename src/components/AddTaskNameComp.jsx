@@ -16,11 +16,16 @@ const Container = styled.View`
   align-items: center;
 `;
 
-function AddTaskNameComp() {
+function AddTaskNameComp({taskNameInput, setTaskNameInput}) {
   const {t} = useTranslation();
   return (
     <Container>
-      <StyledInput placeholder={t('taskName')} placeholderTextColor="#C7C7CD" />
+      <StyledInput
+        placeholder={t('taskName')}
+        placeholderTextColor="#C7C7CD"
+        value={taskNameInput}
+        onChangeText={txt => setTaskNameInput(txt)}
+      />
     </Container>
   );
 }
