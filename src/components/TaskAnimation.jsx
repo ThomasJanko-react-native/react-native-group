@@ -4,25 +4,25 @@ import LottieView from 'lottie-react-native';
 import styled from 'styled-components';
 
 
-const HomeLogo = () => {
+const TaskAnimation = () => {
     return (
       <Container >
         <LottieView
-          source={require('./animations/todo.animation.json')}
+          source={require('./animations/task.animation.json')}
           autoPlay={true}
           speed={1}
-          loop={true}
-          style={{width: '100%', height: '86%'}}
+          loop={false}
+          style={{width: '100%', height: '100%'}}
         />
       </Container>
     );
   };
 
-  export default HomeLogo;
+  export default TaskAnimation;
 
 
 const Container = styled.View`
-  margin-top: 60px;
+  margin-top: 0px;
   align-self: center;
   justifty-content: center;
   align-items: center;

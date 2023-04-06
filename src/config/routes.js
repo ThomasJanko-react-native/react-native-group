@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import HomeScreen from '../screens/HomeScreen';
 import TasksScreen from '../screens/TasksScreen';
 import AddNewTaskScreen from '../screens/AddNewTaskScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,10 +20,30 @@ const theme = {
 };
 
 function Routes() {
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+   
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => {
+      setLoading(true);
+    };
+  }, []);
+
+if(loading){
+  return <SplashScreen/>
+}
+
   return (
     <GlobalSafeAreaView>
       <NavigationContainer theme={theme}>
+        
         <Stack.Navigator>
+
           <Stack.Screen
             name="HomeScreen"
             options={{
