@@ -4,6 +4,7 @@ import DateTimePickerModal from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 
 const DateContainer = styled.TouchableOpacity`
   background-color: #dcdcdc;
@@ -33,6 +34,9 @@ const TextDate = styled.Text`
 `;
 
 function AddTaskDateComp() {
+
+  const {t} = useTranslation();
+
   const [showPicker, setShowPicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -51,7 +55,7 @@ function AddTaskDateComp() {
             color="black"
             onPress={() => console.log('calendar button pressed')}
           />
-          <TextDate>Task Date</TextDate>
+          <TextDate>{t('taskDate')}</TextDate>
         </View>
         <DateTextContainer>
           <DateText>{selectedDate.toLocaleDateString()}</DateText>

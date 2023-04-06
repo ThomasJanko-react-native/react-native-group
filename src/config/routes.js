@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import styled from 'styled-components';
@@ -10,10 +10,18 @@ import AddNewTaskScreen from '../screens/AddNewTaskScreen';
 
 const Stack = createStackNavigator();
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+};
+
 function Routes() {
   return (
     <GlobalSafeAreaView>
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
         <Stack.Navigator>
           <Stack.Screen
             name="HomeScreen"
@@ -46,6 +54,7 @@ function Routes() {
 
 const GlobalSafeAreaView = styled.SafeAreaView`
   flex: 1;
+  background-color: ${({theme}) => theme.backgroundColor};
 `;
 
 export default Routes;

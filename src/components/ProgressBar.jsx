@@ -1,12 +1,14 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/native';
 
 const CustomProgressBar = () => {
+  const {t} = useTranslation();
   return (
     <ProgressBarContainer>
       <ProgressBar />
       <ProgressBarUpper />
-      <ProgressLabel>Progress</ProgressLabel>
+      <ProgressLabel>{t('progress')}</ProgressLabel>
       <Percentage>30%</Percentage>
     </ProgressBarContainer>
   );
