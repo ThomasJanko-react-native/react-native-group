@@ -3,12 +3,11 @@ import styled from 'styled-components/native';
 import {Dimensions, Button, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-const windowWidth = Dimensions.get('window').width;
 
 const ButtonsContainer = styled.View`
   position: absolute;
   align-self: center;
-  bottom: 0;
+  bottom: 80px;
   flex-direction: row;
   justify-content: space-between;
   border-radius: 8px;
