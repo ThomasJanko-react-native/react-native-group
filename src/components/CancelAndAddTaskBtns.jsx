@@ -2,12 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-<<<<<<< HEAD
-import { useTranslation } from 'react-i18next';
-=======
 import {useTranslation} from 'react-i18next';
 const windowWidth = Dimensions.get('window').width;
->>>>>>> 754d5f7 (tech: code refactor)
 
 const ButtonsContainer = styled.View`
   position: absolute;

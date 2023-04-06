@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {addTodo} from '../redux/actions/todo';
 
 import AddTaskDateComp from '../components/AddTaskDateComp';
 import AddTaskNameComp from '../components/AddTaskNameComp';
@@ -21,9 +22,18 @@ import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const [taskNameInput, setTaskNameInput] = useState('');
+  const [taskSteps, setTaskSteps] = useState([
+    {id: 0, checked: false, content: ''},
+  ]);
+
   const [image, setImage] = useState(null);
   const theme = useSelector(state => state);
 
@@ -59,16 +69,7 @@ function AddNewTaskScreen() {
         setImage(response.path);
       }
     });
-import {addTodo} from '../redux/actions/todo';
-
-function AddNewTaskScreen() {
-  const {t} = useTranslation();
-  const dispatch = useDispatch();
-
-  const [taskNameInput, setTaskNameInput] = useState('');
-  const [taskSteps, setTaskSteps] = useState([
-    {id: 0, checked: false, content: ''},
-  ]);
+  };
 
   useEffect(() => {
     console.log(taskSteps);
@@ -82,6 +83,7 @@ function AddNewTaskScreen() {
         status: 'ongoing',
       }),
     );
+    navigation.navigate('TaskScreen');
   };
 
   return (
@@ -120,7 +122,7 @@ function AddNewTaskScreen() {
       </TouchableOpacityCamera>
 
       <Spacer height={30} />
-      <CancelAndAddTaskBtns />
+      <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
     </Container>
   );
 }
