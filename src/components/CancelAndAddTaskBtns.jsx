@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Dimensions, Button, Text, TouchableOpacity} from 'react-native';
+import {Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+const windowWidth = Dimensions.get('window').width;
 
 const ButtonsContainer = styled.View`
   position: absolute;
@@ -29,31 +30,31 @@ const SaveButton = styled.TouchableOpacity`
   width: 45%;
   padding: 16px;
   align-items: center;
-  background-color: #eebc73;
+  background-color: ${props => props.theme.primaryColor};
   border-radius: 10px;
   opacity: 0.9;
 `;
 
 const ButtonTextCancel = styled.Text`
-  color: #eebc73;
+  color: ${props => props.theme.primaryColor};
   font-weight: bold;
 `;
 const ButtonTextSave = styled.Text`
-  color: white;
+  color: ${props => props.theme.whiteColor};
   font-weight: bold;
 `;
 
-function CancelAndAddTaskBtns() {
+function CancelAndAddTaskBtns({handleSaveTask}) {
   const {t} = useTranslation();
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <ButtonsContainer>
       <CancelButton onPress={() => navigation.navigate('TaskScreen')}>
         <ButtonTextCancel>{t('buttons.cancel')}</ButtonTextCancel>
       </CancelButton>
-      <SaveButton onPress={() => navigation.navigate('TaskScreen')}>
+      <SaveButton onPress={handleSaveTask}>
         <ButtonTextSave>{t('buttons.save')}</ButtonTextSave>
       </SaveButton>
     </ButtonsContainer>

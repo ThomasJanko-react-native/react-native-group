@@ -1,5 +1,5 @@
-//import { createStore } from 'redux'; //deprecated. use configureStore instead
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, createStore} from 'redux';
 import rootReducer from './reducer';
+import themeReducer from './themeReducer';
 
-export const store = configureStore(rootReducer);
+export const store = createStore(combineReducers({rootReducer, themeReducer}));

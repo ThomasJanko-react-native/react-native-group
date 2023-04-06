@@ -5,48 +5,36 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
-import { Text, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import ThemeSwitcher from '../components/ThemeSwitcher';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
-import { initNotification, onDisplayNotification } from '../config/messages';
-
-const fakeData = [
-  {taskName: 'Task one', status: 'pending'},
-  {taskName: 'Task eleven', status: 'ongoing'},
-  {taskName: 'Task two', status: 'completed'},
-  {taskName: 'Task three', status: 'ongoing'},
-];
+import {initNotification, onDisplayNotification} from '../config/messages';
 
 const TasksScreen = () => {
-
   const {t} = useTranslation();
-  
+
   const navigation = useNavigation();
 
   const [activeFilter, setActiveFilter] = useState('ongoing');
-  const [tasksList, setTasksList] = useState(fakeData);
-  const dispatch = useDispatch();
-  const theme = useSelector(state => state);
   const [updateCount, setUpdateCount] = useState(0);
+  const theme = useSelector(state => state.themeReducer);
+  const tasksList = useSelector(state => state.rootReducer.todos);
 
   useEffect(() => {
     initNotification();
-    setTasksList(fakeData.filter(t => t.status === activeFilter));
+
+    console.log(tasksList);
   }, []);
 
   const handleFilterPress = filter => {
     setActiveFilter(filter);
-
-    setTasksList(fakeData.filter(t => t.status === filter));
   };
 
   const changeLanguage = () => {
     const newLanguage = i18n.language === 'en' ? 'fr' : 'en';
     i18n.changeLanguage(newLanguage);
-    console.log(i18n.language)
     setUpdateCount(updateCount + 1);
   };
 
@@ -54,54 +42,70 @@ const TasksScreen = () => {
     <Container>
       <NavBar>
         <IconContainer>
-          <TouchableOpacity onPress={() => onDisplayNotification('Notification',`Here is a notification`,)}>
-          <NotifIcon name="notifications-none" size={30} color={theme == 'dark'? 'white' : 'black'} />
+          <TouchableOpacity
+            onPress={() =>
+              onDisplayNotification('Notification', `Here is a notification`)
+            }>
+            <NotifIcon
+              name="notifications-none"
+              size={30}
+              color={theme == 'dark' ? 'white' : 'black'}
+            />
           </TouchableOpacity>
         </IconContainer>
-        <ThemeSwitcher/>
+        <ThemeSwitcher />
         <IconContainer>
-        <TouchableOpacity>
-          <Icon name="md-search" size={30} color={theme == 'dark'? 'white' : 'black'} />
+          <TouchableOpacity>
+            <Icon
+              name="md-search"
+              size={30}
+              color={theme == 'dark' ? 'white' : 'black'}
+            />
           </TouchableOpacity>
         </IconContainer>
         <IconContainer>
-        <TouchableOpacity onPress={changeLanguage}>
-        {/* <Button onPress={changeLanguage} title={t('changeLanguage')} /> */}
-          <Icon name="language" size={30} color={theme == 'dark'? 'white' : 'black'} />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={changeLanguage}>
+            <Icon
+              name="language"
+              size={30}
+              color={theme == 'dark' ? 'white' : 'black'}
+            />
+          </TouchableOpacity>
         </IconContainer>
       </NavBar>
 
       <WelcomeSection>
         <Title>{t('welcome')}</Title>
         <Subtitle>{t('tasks')} </Subtitle>
-        <Description>
-        {t('desc')}
-        </Description>
+        <Description>{t('desc')}</Description>
       </WelcomeSection>
 
       <FilterSection>
         <FilterButton
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
-          <FilterText active={activeFilter === 'ongoing'}>{t('states.onGoing')}</FilterText>
+          <FilterText active={activeFilter === 'ongoing'}>
+            {t('states.onGoing')}
+          </FilterText>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'pending'}
           onPress={() => handleFilterPress('pending')}>
-          <FilterText active={activeFilter === 'pending'}>{t('states.pending')}</FilterText>
+          <FilterText active={activeFilter === 'pending'}>
+            {t('states.pending')}
+          </FilterText>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'completed'}
           onPress={() => handleFilterPress('completed')}>
           <FilterText active={activeFilter === 'completed'}>
-          {t('states.completed')}
+            {t('states.completed')}
           </FilterText>
         </FilterButton>
       </FilterSection>
 
       <Carousel
-        data={tasksList}
+        data={tasksList.filter(t => t.status === activeFilter)}
         renderItem={({item}) => <TaskItem task={item} />}
         sliderWidth={400}
         itemWidth={250}
@@ -154,12 +158,12 @@ const Subtitle = styled.Text`
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: ${props => props.theme.textColor}
+  color: ${props => props.theme.textColor};
 `;
 
 const Description = styled.Text`
   font-size: 16px;
-  color: #888;
+  color: ${props => props.theme.textColor};
 `;
 
 const FilterSection = styled.View`

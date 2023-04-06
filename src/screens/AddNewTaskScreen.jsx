@@ -9,6 +9,9 @@ import {
   PermissionsAndroid,
   TouchableOpacity,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {addTodo} from '../redux/actions/todo';
+
 import AddTaskDateComp from '../components/AddTaskDateComp';
 import AddTaskNameComp from '../components/AddTaskNameComp';
 import AddTaskStepComp from '../components/AddTaskStepComp';
@@ -19,11 +22,18 @@ import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useSelector } from 'react-redux';
-
+import {useNavigation} from '@react-navigation/native';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const [taskNameInput, setTaskNameInput] = useState('');
+  const [taskSteps, setTaskSteps] = useState([
+    {id: 0, checked: false, content: ''},
+  ]);
+
   const [image, setImage] = useState(null);
   const theme = useSelector(state => state);
 
@@ -61,29 +71,58 @@ function AddNewTaskScreen() {
     });
   };
 
+  useEffect(() => {
+    console.log(taskSteps);
+  });
+
+  const handleSaveTask = () => {
+    dispatch(
+      addTodo({
+        taskName: taskNameInput,
+        taskSteps,
+        status: 'ongoing',
+      }),
+    );
+    navigation.navigate('TaskScreen');
+  };
+
   return (
     <Container>
-      <Title>{t('taskTitle')}</Title>
+      <Title>{t('taskTitle')} </Title>
+      <Spacer height={60} />
+      <AddTaskNameComp
+        taskNameInput={taskNameInput}
+        setTaskNameInput={setTaskNameInput}
+      />
       <Spacer height={40} />
-      <AddTaskNameComp />
-      <Spacer height={40} />
-      <AddTaskStepComp title={t('taskName')} />
+      {taskSteps.map(input => (
+        <AddTaskStepComp
+          title={t('taskSteps')}
+          setTaskSteps={setTaskSteps}
+          data={input}
+          key={input.id}
+        />
+      ))}
       <Spacer height={10} />
-
-      <AddNewStepBtn />
+      <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
       <Spacer height={30} />
       <AddTaskTimeComp />
       <Spacer height={30} />
       <AddTaskDateComp />
       <Spacer height={20} />
 
-      {image && <ImagePhoto source={{uri: image}}  />}
+      {image && <ImagePhoto source={{uri: image}} />}
       <TouchableOpacityCamera>
-        <Icon name="camera" size={30}  color={theme == 'dark'? 'white' : 'black'} onPress={takePicture} />
+        <Icon
+          name="camera"
+          size={30}
+          color={theme == 'dark' ? 'white' : 'black'}
+          onPress={takePicture}
+        />
       </TouchableOpacityCamera>
 
       <Spacer height={30} />
-      <CancelAndAddTaskBtns />
+      <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
     </Container>
   );
 }
@@ -107,17 +146,17 @@ const Spacer = styled.View`
 `;
 
 const ImagePhoto = styled.Image`
-align-self: center;
-border-radius: 10px;
-width: 140;
-height: 100;
-margin-bottom: 20px;
+  align-self: center;
+  border-radius: 10px;
+  width: 140;
+  height: 100;
+  margin-bottom: 20px;
 `;
 
 const TouchableOpacityCamera = styled.TouchableOpacity`
-border-radius: 50px;
-align-self: center;
-margin-bottom: 20px;
+  border-radius: 50px;
+  align-self: center;
+  margin-bottom: 20px;
 `;
 
 export default AddNewTaskScreen;

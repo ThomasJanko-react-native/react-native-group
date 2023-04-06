@@ -5,11 +5,9 @@ import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 
 const StyledInput = styled.TextInput`
-  color: grey;
-  background-color: #eaeaea;
-  border-radius: 18px;
+  background-color: ${props => props.theme.itemBackgroundColor};
+  border-radius: 15px;
   padding: 14px;
-  color: black;
   padding-left: 20px;
   width: 100%;
 `;
@@ -18,11 +16,16 @@ const Container = styled.View`
   align-items: center;
 `;
 
-function AddTaskNameComp() {
+function AddTaskNameComp({taskNameInput, setTaskNameInput}) {
   const {t} = useTranslation();
   return (
     <Container>
-      <StyledInput placeholder={t('taskName')} placeholderTextColor="#C7C7CD" />
+      <StyledInput
+        placeholder={t('taskName')}
+        placeholderTextColor="#C7C7CD"
+        value={taskNameInput}
+        onChangeText={txt => setTaskNameInput(txt)}
+      />
     </Container>
   );
 }
