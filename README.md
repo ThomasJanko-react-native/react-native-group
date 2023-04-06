@@ -21,3 +21,4 @@ A FAIRE:
 -Ajout, validation et suppression des sous taches
 -Le progress bar se mets à jour automatiquement en fonction des sous taches validées 
 -Voice recognition 
+-Notification de rappel avant expiration du temps imparti pour une tache
