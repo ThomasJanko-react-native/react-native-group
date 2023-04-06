@@ -81,6 +81,7 @@ function AddNewTaskScreen() {
         taskName: taskNameInput,
         taskSteps,
         status: 'ongoing',
+        id: new Date().getTime(),
       }),
     );
     navigation.navigate('TaskScreen');

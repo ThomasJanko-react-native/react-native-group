@@ -1,20 +1,34 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
+import {removeTodo} from '../redux/actions/todo';
 
 const TaskItem = ({task}) => {
+  const dispatch = useDispatch();
+
+  const handleOnDelete = () => {
+    dispatch(removeTodo(task));
+  };
+
   return (
-    <Container>
-      <Header>
-        <Date>July 5, 2020</Date>
-        <WeeksLeft>3 week left</WeeksLeft>
-      </Header>
-      <TitleBlock>
-        <Title>Task</Title>
-        <Subtitle>{task.taskName}</Subtitle>
-      </TitleBlock>
-      <CustomProgressBar />
-    </Container>
+    <>
+      <Container>
+        <Header>
+          <Date>July 5, 2020</Date>
+          <WeeksLeft>3 week left</WeeksLeft>
+        </Header>
+        <TitleBlock>
+          <Title>Task</Title>
+          <Subtitle>{task.taskName}</Subtitle>
+        </TitleBlock>
+        <CustomProgressBar />
+      </Container>
+      <DeleteIcon>
+        <Icon name="md-trash" size={25} onPress={handleOnDelete} />
+      </DeleteIcon>
+    </>
   );
 };
 
@@ -60,6 +74,13 @@ const Title = styled.Text`
 
 const Subtitle = styled.Text`
   font-size: 13px;
+`;
+
+const DeleteIcon = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
 `;
 
 export default TaskItem;
