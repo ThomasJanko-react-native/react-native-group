@@ -19,8 +19,8 @@ import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useSelector } from 'react-redux';
-
+import {useSelector} from 'react-redux';
+import {ScrollView} from 'react-native-gesture-handler';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -62,29 +62,36 @@ function AddNewTaskScreen() {
   };
 
   return (
-    <Container>
-      <Title>{t('taskTitle')}</Title>
-      <Spacer height={60} />
-      <AddTaskNameComp />
-      <Spacer height={40} />
-      <AddTaskStepComp title={t('taskName')} />
-      <Spacer height={10} />
+    <ScrollView>
+      <Container>
+        <Title>{t('taskTitle')}</Title>
+        <Spacer height={60} />
+        <AddTaskNameComp />
+        <Spacer height={40} />
+        <AddTaskStepComp title={t('taskName')} />
+        <Spacer height={10} />
 
-      <AddNewStepBtn />
-      <Spacer height={30} />
-      <AddTaskTimeComp />
-      <Spacer height={30} />
-      <AddTaskDateComp />
-      <Spacer height={20} />
+        <AddNewStepBtn />
+        <Spacer height={30} />
+        <AddTaskTimeComp />
+        <Spacer height={30} />
+        <AddTaskDateComp />
+        <Spacer height={20} />
 
-      {image && <ImagePhoto source={{uri: image}}  />}
-      <TouchableOpacityCamera>
-        <Icon name="camera" size={30}  color={theme == 'dark'? 'white' : 'black'} onPress={takePicture} />
-      </TouchableOpacityCamera>
+        {image && <ImagePhoto source={{uri: image}} />}
+        <TouchableOpacityCamera>
+          <Icon
+            name="camera"
+            size={30}
+            color={theme == 'dark' ? 'white' : 'black'}
+            onPress={takePicture}
+          />
+        </TouchableOpacityCamera>
 
-      <Spacer height={30} />
-      <CancelAndAddTaskBtns />
-    </Container>
+        <Spacer height={30} />
+        <CancelAndAddTaskBtns />
+      </Container>
+    </ScrollView>
   );
 }
 
@@ -105,17 +112,17 @@ const Spacer = styled.View`
 `;
 
 const ImagePhoto = styled.Image`
-align-self: center;
-border-radius: 10px;
-width: 140;
-height: 100;
-margin-bottom: 20px;
+  align-self: center;
+  border-radius: 10px;
+  width: 140;
+  height: 100;
+  margin-bottom: 20px;
 `;
 
 const TouchableOpacityCamera = styled.TouchableOpacity`
-border-radius: 50px;
-align-self: center;
-margin-bottom: 20px;
+  border-radius: 50px;
+  align-self: center;
+  margin-bottom: 20px;
 `;
 
 export default AddNewTaskScreen;
