@@ -1,7 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {View, TextInput} from 'react-native';
 import styled from 'styled-components/native';
+import {useSelector} from 'react-redux';
 
 const StyledInput = styled.TextInput`
   color: grey;
@@ -18,7 +19,6 @@ const Container = styled.View`
 `;
 
 function AddTaskNameComp() {
-
   const {t} = useTranslation();
   return (
     <Container>
