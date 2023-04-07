@@ -1,24 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
+import { setSelectedTask } from '../redux/actions/todo';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const TaskItem = ({task}) => {
+
+  const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const handleTaskPress = () => {
+    dispatch(setSelectedTask(task))
+    console.log(selectedTask)
+    navigation.navigate('AddNewTaskScreen');
+  };
+
+  
+
   return (
-    <Container>
+    <Container onPress={handleTaskPress}>
       <Header>
         <Date>July 5, 2020</Date>
         <WeeksLeft>3 week left</WeeksLeft>
       </Header>
       <TitleBlock>
-        <Title>Task</Title>
-        <Subtitle>{task.taskName}</Subtitle>
+        <Title>{task.taskName}</Title>
+        {task.taskSteps.map(step => (
+          <Subtitle>{step.content}</Subtitle>
+        ))}
+         {/* <Subtitle>{task.taskName}</Subtitle> */}
       </TitleBlock>
       <CustomProgressBar />
     </Container>
   );
 };
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   width: 250px;
   height: 250px;
   background-color: ${props => props.theme.secondaryColor};

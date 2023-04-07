@@ -6,16 +6,18 @@ import TaskItem from '../components/TaskItem';
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
+import { setSelectedTask } from '../redux/actions/todo';
 
 const TasksScreen = () => {
   const {t} = useTranslation();
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [activeFilter, setActiveFilter] = useState('ongoing');
   const [updateCount, setUpdateCount] = useState(0);
@@ -37,6 +39,11 @@ const TasksScreen = () => {
     i18n.changeLanguage(newLanguage);
     setUpdateCount(updateCount + 1);
   };
+
+  const handleAddNewTask = () => {
+    dispatch(setSelectedTask(null))
+    navigation.navigate('AddNewTaskScreen');
+  }
 
   return (
     <Container>
@@ -106,12 +113,12 @@ const TasksScreen = () => {
 
       <Carousel
         data={tasksList.filter(t => t.status === activeFilter)}
-        renderItem={({item}) => <TaskItem task={item} />}
+        renderItem={({item}) => <TaskItem key={item.id} task={item} />}
         sliderWidth={400}
         itemWidth={250}
       />
 
-      <Button onPress={() => navigation.navigate('AddNewTaskScreen')}>
+      <Button onPress={handleAddNewTask}>
         <Icon name="ios-add-circle" size={50} color="#EEBC73" />
       </Button>
     </Container>
