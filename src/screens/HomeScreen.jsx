@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 
 const HomeContainer = styled.View`
-  background-color: white;
+  background-color: ${props => props.theme.backgroundColor};
   height: 100%;
 `;
 

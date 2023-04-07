@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {addTodo} from '../redux/actions/todo';
+import {addTodo, update_todo} from '../redux/actions/todo';
 
 import AddTaskDateComp from '../components/AddTaskDateComp';
 import AddTaskNameComp from '../components/AddTaskNameComp';
@@ -28,14 +28,26 @@ function AddNewTaskScreen() {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const selectedTask = useSelector(state => state.rootReducer.selectedTask);
 
   const [taskNameInput, setTaskNameInput] = useState('');
   const [taskSteps, setTaskSteps] = useState([
     {id: 0, checked: false, content: ''},
   ]);
+  const [taskTime, setTaskTime] = useState('');
 
   const [image, setImage] = useState(null);
   const theme = useSelector(state => state);
+
+  useEffect(() => {
+    if(selectedTask?.task) {
+      
+      setTaskNameInput(selectedTask.task.taskName);
+      setTaskSteps(selectedTask.task.taskSteps);
+      console.log('name', selectedTask.task.taskName )
+      console.log('TASKK',selectedTask)
+    }
+  }, []);
 
   async function requestCameraPermission() {
     try {
@@ -71,11 +83,16 @@ function AddNewTaskScreen() {
     });
   };
 
-  useEffect(() => {
-    console.log(taskSteps);
-  });
 
   const handleSaveTask = () => {
+    if(selectedTask?.task) {
+      dispatch(update_todo({
+        taskName: taskNameInput,
+        taskSteps,
+        status: 'ongoing',
+      }))
+    }
+    else{
     dispatch(
       addTodo({
         taskName: taskNameInput,
@@ -83,6 +100,7 @@ function AddNewTaskScreen() {
         status: 'ongoing',
       }),
     );
+    }
     navigation.navigate('TaskScreen');
   };
 
@@ -106,7 +124,7 @@ function AddNewTaskScreen() {
       <Spacer height={10} />
       <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
       <Spacer height={30} />
-      <AddTaskTimeComp />
+      <AddTaskTimeComp setTaskTime={setTaskTime} />
       <Spacer height={30} />
       <AddTaskDateComp />
       <Spacer height={20} />
