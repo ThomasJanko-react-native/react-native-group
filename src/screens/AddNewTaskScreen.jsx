@@ -106,43 +106,45 @@ function AddNewTaskScreen() {
   };
 
   return (
-    <Container>
-      <Title>{t('taskTitle')} </Title>
-      <Spacer height={60} />
-      <AddTaskNameComp
-        taskNameInput={taskNameInput}
-        setTaskNameInput={setTaskNameInput}
-      />
-      <Spacer height={40} />
-      {taskSteps.map(input => (
-        <AddTaskStepComp
-          title={t('taskSteps')}
-          setTaskSteps={setTaskSteps}
-          data={input}
-          key={input.id}
+    <ScrollView>
+      <Container>
+        <Title>{t('taskTitle')} </Title>
+        <Spacer height={60} />
+        <AddTaskNameComp
+          taskNameInput={taskNameInput}
+          setTaskNameInput={setTaskNameInput}
         />
-      ))}
-      <Spacer height={10} />
-      <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
-      <Spacer height={30} />
-      <AddTaskTimeComp setTaskTime={setTaskTime} />
-      <Spacer height={30} />
-      <AddTaskDateComp />
-      <Spacer height={20} />
+        <Spacer height={40} />
+        {taskSteps.map(input => (
+          <AddTaskStepComp
+            title={t('taskSteps')}
+            setTaskSteps={setTaskSteps}
+            data={input}
+            key={input.id}
+          />
+        ))}
+        <Spacer height={10} />
+        <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
+        <Spacer height={30} />
+        <AddTaskTimeComp setTaskTime={setTaskTime} />
+        <Spacer height={30} />
+        <AddTaskDateComp />
+        <Spacer height={20} />
 
-      {image && <ImagePhoto source={{uri: image}} />}
-      <TouchableOpacityCamera>
-        <Icon
-          name="camera"
-          size={30}
-          color={theme == 'dark' ? 'white' : 'black'}
-          onPress={takePicture}
-        />
-      </TouchableOpacityCamera>
+        {image && <ImagePhoto source={{uri: image}} />}
+        <TouchableOpacityCamera>
+          <Icon
+            name="camera"
+            size={30}
+            color={theme == 'dark' ? 'white' : 'black'}
+            onPress={takePicture}
+          />
+        </TouchableOpacityCamera>
 
-      <Spacer height={30} />
-      <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
-    </Container>
+        <Spacer height={30} />
+        <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
+      </Container>
+    </ScrollView>
   );
 }
 
