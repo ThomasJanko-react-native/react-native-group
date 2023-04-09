@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
-import { setSelectedTask } from '../redux/actions/todo';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {setSelectedTask} from '../redux/actions/todo';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {Image} from 'react-native';
 
 const TaskItem = ({task}) => {
-
-  const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
+  const selectedTask = useSelector(state => state.rootReducer.selectedTask);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleTaskPress = () => {
-    dispatch(setSelectedTask(task))
-    console.log(selectedTask)
+    dispatch(setSelectedTask(task));
+    console.log(selectedTask);
     navigation.navigate('AddNewTaskScreen');
   };
-
-  
 
   return (
     <Container onPress={handleTaskPress}>
@@ -29,7 +27,11 @@ const TaskItem = ({task}) => {
         {task.taskSteps.map(step => (
           <Subtitle>{step.content}</Subtitle>
         ))}
-         {/* <Subtitle>{task.taskName}</Subtitle> */}
+        {/* <Subtitle>{task.taskName}</Subtitle> */}
+        <Image
+          source={{uri: task.image}}
+          style={{width: 75, height: 75, borderRadius: 10}}
+        />
       </TitleBlock>
       <CustomProgressBar />
     </Container>

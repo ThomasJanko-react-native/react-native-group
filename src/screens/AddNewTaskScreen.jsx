@@ -22,7 +22,6 @@ import styled from 'styled-components/native';
 import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
@@ -99,6 +98,7 @@ function AddNewTaskScreen() {
           taskName: taskNameInput,
           taskSteps,
           status: 'ongoing',
+          image: image,
         }),
       );
     }
