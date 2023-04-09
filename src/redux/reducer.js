@@ -1,39 +1,45 @@
-import { ADD_TODO, REMOVE_TODO } from "./actions/todo";
-import { SET_THEME } from "./actions/themeMode";
+import {ADD_TODO, REMOVE_TODO, UPDATE_TODO, SET_SELECTED_TASK} from './actions/todo';
 
 const initialState = {
   //states go here
-    count: 0,
-    todos: [],
-  }
+  count: 0,
+  todos: [],
+  selectedTask: null,
+};
 
-  
-  
-  const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-      // your action handlers go here
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    // your action handlers go here
 
-      //TODO
-      case ADD_TODO:
+    //TODO
+    case ADD_TODO:
       return {
         ...state,
         todos: [...state.todos, action.payload.todo],
-      }
-      case REMOVE_TODO:
+      };
+
+    case REMOVE_TODO:
       return {
         ...state,
-        todos: state.todos.filter((t) => t !== action.payload.todo),
-      }
+        todos: state.todos.filter(t => t !== action.payload.todo),
+      };
 
-      case 'SET_THEME':
-      return action.theme;
+    case UPDATE_TODO:
+      return {
+      ...state,
+      todos: state.todos.map(t => t.id === action.payload.todo.id ? action.payload.todo : t),
+      };
 
+    case SET_SELECTED_TASK:
+      return {
+        ...state,
+        selectedTask: action.payload,
+      };
+        
 
-      default:
-        return state;
-    }
+    default:
+      return state;
   }
-  
-  export default rootReducer;
-  
+};
 
+export default rootReducer;

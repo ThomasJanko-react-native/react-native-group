@@ -2,12 +2,11 @@ import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import DateTimePickerModal from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const DateContainer = styled.TouchableOpacity`
-  background-color: #dcdcdc;
+  background-color: ${props => props.theme.itemBackgroundColor};
   border-radius: 18px;
   padding: 18px;
   padding-left: 20px;
@@ -23,18 +22,23 @@ const DateTextContainer = styled.View`
 `;
 
 const DateText = styled.Text`
-  color: black;
+  color: ${props => props.theme.textColor}
   font-weight: 700;
 `;
 
 const TextDate = styled.Text`
   margin-left: 8px;
-  color: black;
+  color: ${props => props.theme.textColor}
   font-weight: 700;
 `;
 
-function AddTaskDateComp() {
+const View = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
+function AddTaskDateComp() {
   const {t} = useTranslation();
 
   const [showPicker, setShowPicker] = useState(false);
@@ -48,24 +52,14 @@ function AddTaskDateComp() {
   return (
     <>
       <DateContainer onPress={() => setShowPicker(true)}>
-        <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-          <Icon
-            name="calendar"
-            size={24}
-            color="black"
-            onPress={() => console.log('calendar button pressed')}
-          />
+        <View>
+          <Icon name="calendar" size={24} color="black" />
           <TextDate>{t('taskDate')}</TextDate>
         </View>
         <DateTextContainer>
           <DateText>{selectedDate.toLocaleDateString()}</DateText>
           <TouchableOpacity>
-            <Icon
-              name="right"
-              size={24}
-              color="black"
-              onPress={() => console.log('right button pressed')}
-            />
+            <Icon name="right" size={15} color="black" />
           </TouchableOpacity>
         </DateTextContainer>
       </DateContainer>
@@ -75,8 +69,6 @@ function AddTaskDateComp() {
           mode="date"
           display="calendar"
           onChange={(event, date) => handleConfirm(date)}
-          style={{backgroundColor: '#EEBC73'}}
-          textColor="#FFFFFF"
         />
       )}
     </>

@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import { useTranslation } from 'react-i18next';
+import {TouchableOpacity} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-function AddNewStepBtn() {
-
+function AddNewStepBtn({setTaskSteps, count}) {
   const {t} = useTranslation();
+
+  const handleAddStep = () => {
+    setTaskSteps(prev => [
+      ...prev,
+      {
+        id: count,
+        checked: false,
+      },
+    ]);
+  };
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => console.log('adding a new task')}>
+      <TouchableOpacity onPress={handleAddStep}>
         <Content>{t('buttons.newStep')}</Content>
       </TouchableOpacity>
     </Container>

@@ -1,14 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import AddNewStepBtn from '../components/AddNewStepBtn';
 import HomeLogo from '../components/HomeLogo';
-import TodoList from '../components/TodoList';
 import styled from 'styled-components';
-import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const HomeContainer = styled.View`
-  background-color: white;
+  background-color: ${props => props.theme.backgroundColor};
   height: 100%;
 `;
 
@@ -17,16 +13,15 @@ const HomeContent = styled.View`
   margin-horizontal: 40px;
 `;
 
-// ${props => props.theme.fontFamily}
 const HomeTitle = styled.Text`
   font-family: 'Montserrat';
-  color: black;
+  color: ${props => props.theme.textColor};
   font-size: 30px;
   font-weight: 800;
 `;
 
 const HomeSubtitle = styled.Text`
-  color: black;
+  color: ${props => props.theme.textColor};
   margin-top: 8px;
   font-style: italic;
   font-size: 15px;
@@ -40,13 +35,18 @@ const HomeButton = styled.TouchableOpacity`
   width: 40%;
   padding: 16px;
   align-items: center;
-  background-color: #eebc73;
+  background-color: ${props => props.theme.primaryColor};
   border-radius: 10px;
   opacity: 0.9;
 `;
 
 const MyText = styled.Text`
   font-weight: bold;
+`;
+
+const View = styled.View`
+  margin-top: -100px;
+  margin-right: 40px;
 `;
 
 const HomeScreen = () => {
@@ -56,7 +56,7 @@ const HomeScreen = () => {
     <HomeContainer>
       <HomeContent>
         <HomeLogo />
-        <View style={{marginTop: -100, marginRight: 40}}>
+        <View>
           <HomeTitle>Smart Task Management</HomeTitle>
           <HomeSubtitle>
             Check your daily task management by registering with us.

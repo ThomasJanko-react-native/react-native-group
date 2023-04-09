@@ -1,27 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
+import { setSelectedTask } from '../redux/actions/todo';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const TaskItem = ({task}) => {
+
+  const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const handleTaskPress = () => {
+    dispatch(setSelectedTask(task))
+    console.log(selectedTask)
+    navigation.navigate('AddNewTaskScreen');
+  };
+
+  
+
   return (
-    <Container>
+    <Container onPress={handleTaskPress}>
       <Header>
         <Date>July 5, 2020</Date>
         <WeeksLeft>3 week left</WeeksLeft>
       </Header>
       <TitleBlock>
-        <Title>Task 1</Title>
-        <Subtitle>{task.taskName}</Subtitle>
+        <Title>{task.taskName}</Title>
+        {task.taskSteps.map(step => (
+          <Subtitle>{step.content}</Subtitle>
+        ))}
+         {/* <Subtitle>{task.taskName}</Subtitle> */}
       </TitleBlock>
       <CustomProgressBar />
     </Container>
   );
 };
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   width: 250px;
   height: 250px;
-  background-color: #f3e6dd;
+  background-color: ${props => props.theme.secondaryColor};
   padding: 20px;
   border-radius: 30px;
 `;
@@ -39,8 +57,8 @@ const Date = styled.Text`
 `;
 
 const WeeksLeft = styled.Text`
-  color: #eebc73;
-  background-color: white;
+  color: ${props => props.theme.primaryColor};
+  background-color: ${props => props.theme.whiteColor};
   font-size: 13px;
   padding: 5px 10px;
   border-radius: 50px;
@@ -55,7 +73,7 @@ const TitleBlock = styled.View`
 
 const Title = styled.Text`
   font-size: 25px;
-  color: black;
+  color: ${props => props.theme.textColor};
 `;
 
 const Subtitle = styled.Text`
