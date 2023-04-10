@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 const TaskItem = ({task}) => {
 
   const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
+  const theme = useSelector(state => state.themeReducer);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
@@ -45,13 +46,13 @@ const TaskItem = ({task}) => {
       <TitleBlock>
         <Title>{task.taskName}</Title>
         {task.taskSteps.map(step => (
-          <Subtitle>{step.content}</Subtitle>
+          <Subtitle key={step.id}>{step.content}</Subtitle>
         ))}
       </TitleBlock>
       <CustomProgressBar />
     </Container>
     <DeleteIcon>
-    <Icon name="md-trash" size={25} onPress={handleOnDelete} color={'red'} />
+    <Icon name="md-trash" size={25} onPress={handleOnDelete}  color={theme == 'dark' ? 'white' : 'black'} />
   </DeleteIcon>
 
   <FlashMessage position="top" floating />

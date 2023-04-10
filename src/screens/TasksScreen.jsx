@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
 import { setSelectedTask } from '../redux/actions/todo';
-import { ScrollView } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 const TasksScreen = () => {
@@ -25,12 +25,28 @@ const TasksScreen = () => {
   const [updateCount, setUpdateCount] = useState(0);
   const theme = useSelector(state => state.themeReducer);
   const tasksList = useSelector(state => state.rootReducer.todos);
-
+  const [todoCounts, setTodoCounts] = useState({
+    ongoing: 0,
+    pending: 0,
+    completed: 0,
+  });
   useEffect(() => {
     initNotification();
 
     console.log(tasksList);
   }, []);
+
+  useEffect(() => {
+    const onGoingCount = tasksList.filter((todo) => todo.status === 'ongoing').length;
+    const pendingCount = tasksList.filter((todo) => todo.status === 'pending').length;
+    const completedCount = tasksList.filter((todo) => todo.status === 'completed').length;
+  
+    setTodoCounts({
+      ongoing: onGoingCount,
+      pending: pendingCount,
+      completed: completedCount,
+    });
+  }, [tasksList]);
 
   const handleFilterPress = filter => {
     setActiveFilter(filter);
@@ -128,22 +144,25 @@ const TasksScreen = () => {
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
           <FilterText active={activeFilter === 'ongoing'}>
-            {t('states.onGoing')}
+            {t('states.onGoing')} 
           </FilterText>
+          <Badge> {todoCounts.ongoing}</Badge>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'pending'}
           onPress={() => handleFilterPress('pending')}>
           <FilterText active={activeFilter === 'pending'}>
-            {t('states.pending')}
+            {t('states.pending')} 
           </FilterText>
+          <Badge> {todoCounts.pending}</Badge>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'completed'}
           onPress={() => handleFilterPress('completed')}>
           <FilterText active={activeFilter === 'completed'}>
-            {t('states.completed')}
+            {t('states.completed')} 
           </FilterText>
+          <Badge> {todoCounts.completed}</Badge>
         </FilterButton>
       </FilterSection>
 
@@ -167,6 +186,7 @@ const Container = styled.View`
   flex: 1;
   background-color: ${props => props.theme.backgroundColor};
 `;
+
 
 const NavBar = styled.View`
   flex-direction: row;
@@ -224,6 +244,18 @@ const FilterButton = styled.TouchableOpacity`
   align-self: center;
   border-radius: 20px;
   background-color: ${props => (props.active ? '#eebc73' : '#F3E6DD')};
+  position: relative;
+`;
+
+const Badge = styled.Text`
+  background-color:  ${props => props.theme.backgroundColor};
+  color:  ${props => props.theme.textColor};
+  position: absolute;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  top: 1px;
+  right: 1px;
 `;
 
 const FilterText = styled.Text`
