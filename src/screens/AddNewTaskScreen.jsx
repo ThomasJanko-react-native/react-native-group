@@ -26,6 +26,8 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
+
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -98,6 +100,12 @@ function AddNewTaskScreen() {
         taskDate,
         status: 'ongoing',
       }))
+      showMessage({
+        message: t('messages.taskUpdated'),
+        type: 'success',
+        duration: 2000,
+      });
+
     }
     else{
     dispatch(
@@ -108,6 +116,11 @@ function AddNewTaskScreen() {
         taskDate,
         status: 'ongoing',
         id: new Date().getTime(),
+      }),
+      showMessage({
+        message: t('messages.taskAdded'),
+        type: 'success',
+        duration: 2000,
       }),
     );
     }
@@ -154,6 +167,8 @@ function AddNewTaskScreen() {
       <Spacer height={30} />
       <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
       </ScrollView>
+
+      <FlashMessage position="top" floating />
     </Container>
   );
 }

@@ -28,5 +28,12 @@ module.exports = {
       cancel: 'Cancel',
       save: 'Save',
     },
+
+    messages:{
+      taskAdded: 'Task added successfully !',
+      taskUpdated: 'Task updated successfully !',
+      taskDeleted: 'Task deleted successfully !',
+      taskCompleted: 'Task completed successfully !',
+    }
   },
 };

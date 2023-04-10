@@ -27,5 +27,12 @@ module.exports = {
       cancel: 'Annuler',
       save: 'Enregistrer',
     },
+    messages:{
+      
+      taskAdded: 'Tâche ajoutée avec succès !',
+      taskUpdated: 'Tâche mise à jour avec succès !',
+      taskDeleted: 'Tâche supprimée avec succès !',
+      taskCompleted: 'Tâche terminée avec succès !',
+    }
   },
 };
