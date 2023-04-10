@@ -44,8 +44,6 @@ function AddNewTaskScreen() {
       
       setTaskNameInput(selectedTask.task.taskName);
       setTaskSteps(selectedTask.task.taskSteps);
-      console.log('name', selectedTask.task.taskName )
-      console.log('TASKK',selectedTask)
     }
   }, []);
 
@@ -87,6 +85,7 @@ function AddNewTaskScreen() {
   const handleSaveTask = () => {
     if(selectedTask?.task) {
       dispatch(update_todo({
+        id: selectedTask.task.id,
         taskName: taskNameInput,
         taskSteps,
         status: 'ongoing',
@@ -98,6 +97,7 @@ function AddNewTaskScreen() {
         taskName: taskNameInput,
         taskSteps,
         status: 'ongoing',
+        id: new Date().getTime(),
       }),
     );
     }

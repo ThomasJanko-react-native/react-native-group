@@ -21,7 +21,7 @@ const rootReducer = (state = initialState, action) => {
     case REMOVE_TODO:
       return {
         ...state,
-        todos: state.todos.filter(t => t !== action.payload.todo),
+        todos: state.todos.filter(t => t.id !== action.payload.todo.id),
       };
 
     case UPDATE_TODO:
