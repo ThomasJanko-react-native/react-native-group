@@ -11,6 +11,8 @@ const TaskItem = ({task}) => {
   const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  
   
   const handleTaskPress = () => {
     dispatch(setSelectedTask(task))
@@ -21,6 +23,7 @@ const TaskItem = ({task}) => {
     dispatch(removeTodo(task));
   };
 
+
   return (
     <>
     <Container onPress={handleTaskPress}>
@@ -29,7 +32,7 @@ const TaskItem = ({task}) => {
           <Date>{task.taskDate} </Date>
           <Time>{task.taskTime} </Time>
         </Infos>
-        <WeeksLeft> 3 weeks Left </WeeksLeft>
+        <WeeksLeft>4 days left </WeeksLeft>
       </Header>
       <TitleBlock>
         <Title>{task.taskName}</Title>
@@ -41,7 +44,7 @@ const TaskItem = ({task}) => {
       <CustomProgressBar />
     </Container>
     <DeleteIcon>
-    <Icon name="md-trash" size={25} onPress={handleOnDelete} />
+    <Icon name="md-trash" size={25} onPress={handleOnDelete} color={'red'} />
   </DeleteIcon>
   </>
   );
@@ -85,11 +88,12 @@ const TitleBlock = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  color: ${props => props.theme.primaryColor};
 `;
 
 const Title = styled.Text`
   font-size: 25px;
-  color: ${props => props.theme.textColor};
+  color: ${props => props.theme.primaryColor};
 `;
 
 const Subtitle = styled.Text`
