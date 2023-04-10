@@ -1,24 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
-import { setSelectedTask } from '../redux/actions/todo';
+import { setSelectedTask, removeTodo } from '../redux/actions/todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const TaskItem = ({task}) => {
 
   const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  
   const handleTaskPress = () => {
     dispatch(setSelectedTask(task))
-    console.log(selectedTask)
     navigation.navigate('AddNewTaskScreen');
   };
 
-  
+  const handleOnDelete = () => {
+    dispatch(removeTodo(task));
+  };
 
   return (
+    <>
     <Container onPress={handleTaskPress}>
       <Header>
         <Date>July 5, 2020</Date>
@@ -33,6 +37,10 @@ const TaskItem = ({task}) => {
       </TitleBlock>
       <CustomProgressBar />
     </Container>
+    <DeleteIcon>
+    <Icon name="md-trash" size={25} onPress={handleOnDelete} />
+  </DeleteIcon>
+  </>
   );
 };
 
@@ -78,6 +86,13 @@ const Title = styled.Text`
 
 const Subtitle = styled.Text`
   font-size: 13px;
+`;
+
+const DeleteIcon = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
 `;
 
 export default TaskItem;

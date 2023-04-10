@@ -12,7 +12,7 @@ export function addTodo(todo) {
     },
   };
 }
-export function remove_todo(todo) {
+export function removeTodo(todo) {
   return {
     type: REMOVE_TODO,
     payload: {
