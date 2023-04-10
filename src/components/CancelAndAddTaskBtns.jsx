@@ -8,7 +8,7 @@ const windowWidth = Dimensions.get('window').width;
 const ButtonsContainer = styled.View`
   position: absolute;
   align-self: center;
-  bottom: 80px;
+  bottom: 20px;
   flex-direction: row;
   justify-content: space-between;
   border-radius: 8px;

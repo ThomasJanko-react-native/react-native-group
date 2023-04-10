@@ -8,6 +8,8 @@ import {
   Image,
   PermissionsAndroid,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addTodo, update_todo} from '../redux/actions/todo';
@@ -114,6 +116,8 @@ function AddNewTaskScreen() {
 
   return (
     <Container>
+      <ScrollView contentContainerStyle={{ minHeight: '100%' }}>
+
       <Title>{t('taskTitle')} </Title>
       <Spacer height={60} />
       <AddTaskNameComp
@@ -149,6 +153,7 @@ function AddNewTaskScreen() {
 
       <Spacer height={30} />
       <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
+      </ScrollView>
     </Container>
   );
 }
