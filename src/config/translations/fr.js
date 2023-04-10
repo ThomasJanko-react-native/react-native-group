@@ -5,6 +5,11 @@ module.exports = {
     desc: "Ici se trouve le détails de vos tâches. Vous pouvez voir le détail à n'importe quel moment.",
     progress: 'Progression',
 
+    home:{
+      title: 'Gestion de tâches intelligente',
+      description: 'Gérez vos tâches facilement et efficacement',
+      continue: 'Continuer',
+    },
     states: {
       onGoing: 'En cours',
       pending: 'En attente',

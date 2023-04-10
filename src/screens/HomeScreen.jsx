@@ -2,6 +2,7 @@ import React from 'react';
 import HomeLogo from '../components/HomeLogo';
 import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const HomeContainer = styled.View`
   background-color: ${props => props.theme.backgroundColor};
@@ -51,19 +52,20 @@ const View = styled.View`
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   return (
     <HomeContainer>
       <HomeContent>
         <HomeLogo />
         <View>
-          <HomeTitle>Smart Task Management</HomeTitle>
+          <HomeTitle>{t('home.title')} </HomeTitle>
           <HomeSubtitle>
-            Check your daily task management by registering with us.
+          {t('home.description')}
           </HomeSubtitle>
         </View>
         <HomeButton onPress={() => navigation.navigate('TaskScreen')}>
-          <MyText>Continue</MyText>
+          <MyText>{t('home.continue')}</MyText>
         </HomeButton>
       </HomeContent>
     </HomeContainer>
