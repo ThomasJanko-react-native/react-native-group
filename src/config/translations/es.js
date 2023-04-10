@@ -25,5 +25,11 @@ module.exports = {
             cancel: 'Cancelar',
             save: 'Guardar',
         },
+        messages:{
+            taskAdded: 'Tarea agregada con éxito !',
+            taskUpdated: 'Tarea actualizada con éxito !',
+            taskDeleted: 'Tarea eliminada con éxito !',
+            taskCompleted: 'Tarea completada con éxito !',
+        }
     }
 }

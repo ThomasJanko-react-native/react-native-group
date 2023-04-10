@@ -13,6 +13,7 @@ import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
 import { setSelectedTask } from '../redux/actions/todo';
 import { ScrollView } from 'react-native'
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 const TasksScreen = () => {
   const {t} = useTranslation();
@@ -39,18 +40,38 @@ const TasksScreen = () => {
     switch (i18n.language) {
       case 'en':
         i18n.changeLanguage('fr');
+        showMessage({
+          message: "language changed to French !",
+          type: "info",
+        });
         break;
       case 'fr':
         i18n.changeLanguage('es');
+        showMessage({
+          message: "language changed to Spanish !",
+          type: "info",
+        });
         break;
       case 'es':
         i18n.changeLanguage('de');
+        showMessage({
+          message: "language changed to Deutch !",
+          type: "info",
+        });
         break;
       case 'de':
         i18n.changeLanguage('en');
+        showMessage({
+          message: "language changed to English !",
+          type: "info",
+        });
         break;
       default:
         i18n.changeLanguage('en');
+        showMessage({
+          message: "language changed to English !",
+          type: "info",
+        });
     }
     setUpdateCount(updateCount + 1);
   };
@@ -136,6 +157,8 @@ const TasksScreen = () => {
       <Button onPress={handleAddNewTask}>
         <Icon name="ios-add-circle" size={50} color="#EEBC73" />
       </Button>
+
+      <FlashMessage position="top" animated floating textStyle={{textAlign: 'center'}} />
     </Container>
   );
 };

@@ -26,10 +26,11 @@ module.exports={
             save: 'sparen',
         },
 
-    
-
+        messages:{
+            taskAdded: 'Aufgabe erfolgreich hinzugefügt !',
+            taskUpdated: 'Aufgabe erfolgreich aktualisiert !',
+            taskDeleted: 'Aufgabe erfolgreich gelöscht !',
+            taskCompleted: 'Aufgabe erfolgreich abgeschlossen !',
+        }
         }  
-
-
-
 }

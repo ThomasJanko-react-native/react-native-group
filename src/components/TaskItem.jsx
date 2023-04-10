@@ -5,12 +5,16 @@ import { setSelectedTask, removeTodo } from '../redux/actions/todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
+import { useTranslation } from 'react-i18next';
+
 
 const TaskItem = ({task}) => {
 
   const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   
   
@@ -21,6 +25,10 @@ const TaskItem = ({task}) => {
 
   const handleOnDelete = () => {
     dispatch(removeTodo(task));
+    showMessage({
+      message:  t('messages.taskDeleted'),
+      type: "info",
+    });
   };
 
 
@@ -45,6 +53,8 @@ const TaskItem = ({task}) => {
     <DeleteIcon>
     <Icon name="md-trash" size={25} onPress={handleOnDelete} color={'red'} />
   </DeleteIcon>
+
+  <FlashMessage position="top" floating />
   </>
   );
 };
