@@ -38,7 +38,7 @@ const View = styled.View`
   align-items: center;
 `;
 
-function AddTaskDateComp() {
+function AddTaskDateComp({setTaskDate}) {
   const {t} = useTranslation();
 
   const [showPicker, setShowPicker] = useState(false);
@@ -47,6 +47,7 @@ function AddTaskDateComp() {
   const handleConfirm = date => {
     setShowPicker(false);
     setSelectedDate(date);
+    setTaskDate(date.toLocaleDateString());
   };
 
   return (

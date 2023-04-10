@@ -23,6 +23,7 @@ import {useTranslation} from 'react-i18next';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -34,7 +35,8 @@ function AddNewTaskScreen() {
   const [taskSteps, setTaskSteps] = useState([
     {id: 0, checked: false, content: ''},
   ]);
-  const [taskTime, setTaskTime] = useState('');
+  const [taskTime, setTaskTime] = useState(moment(new Date()).format('h:mm A'));
+  const [taskDate, setTaskDate] = useState(new Date().toLocaleDateString());
 
   const [image, setImage] = useState(null);
   const theme = useSelector(state => state);
@@ -44,6 +46,8 @@ function AddNewTaskScreen() {
       
       setTaskNameInput(selectedTask.task.taskName);
       setTaskSteps(selectedTask.task.taskSteps);
+      setTaskTime(selectedTask.task.taskTime);
+      setTaskDate(selectedTask.task.taskDate);
     }
   }, []);
 
@@ -88,6 +92,8 @@ function AddNewTaskScreen() {
         id: selectedTask.task.id,
         taskName: taskNameInput,
         taskSteps,
+        taskTime,
+        taskDate,
         status: 'ongoing',
       }))
     }
@@ -96,6 +102,8 @@ function AddNewTaskScreen() {
       addTodo({
         taskName: taskNameInput,
         taskSteps,
+        taskTime,
+        taskDate,
         status: 'ongoing',
         id: new Date().getTime(),
       }),
@@ -126,7 +134,7 @@ function AddNewTaskScreen() {
       <Spacer height={30} />
       <AddTaskTimeComp setTaskTime={setTaskTime} />
       <Spacer height={30} />
-      <AddTaskDateComp />
+      <AddTaskDateComp setTaskDate={setTaskDate} />
       <Spacer height={20} />
 
       {image && <ImagePhoto source={{uri: image}} />}

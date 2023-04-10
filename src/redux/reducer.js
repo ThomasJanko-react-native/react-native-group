@@ -13,6 +13,7 @@ const rootReducer = (state = initialState, action) => {
 
     //TODO
     case ADD_TODO:
+      console.log('time', action.payload.todo);
       return {
         ...state,
         todos: [...state.todos, action.payload.todo],

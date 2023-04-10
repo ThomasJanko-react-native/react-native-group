@@ -33,7 +33,7 @@ const View = styled.View`
   align-items: center;
 `;
 
-function AddTaskTimeComp() {
+function AddTaskTimeComp({setTaskTime}) {
   const {t} = useTranslation();
 
   const [showPicker, setShowPicker] = useState(false);
@@ -42,6 +42,7 @@ function AddTaskTimeComp() {
   const handleConfirm = time => {
     setShowPicker(false);
     setSelectedTime(time);
+    setTaskTime(formattedTime);
   };
 
   const formattedTime = moment(selectedTime).format('h:mm A');

@@ -25,8 +25,11 @@ const TaskItem = ({task}) => {
     <>
     <Container onPress={handleTaskPress}>
       <Header>
-        <Date>July 5, 2020</Date>
-        <WeeksLeft>3 week left</WeeksLeft>
+        <Infos>
+          <Date>{task.taskDate} </Date>
+          <Time>{task.taskTime} </Time>
+        </Infos>
+        <WeeksLeft> 3 weeks Left </WeeksLeft>
       </Header>
       <TitleBlock>
         <Title>{task.taskName}</Title>
@@ -63,6 +66,11 @@ const Date = styled.Text`
   color: black;
   font-size: 14px;
 `;
+const Time = styled.Text`
+  color: black;
+  font-size: 12px;
+  font-style: italic;
+`;
 
 const WeeksLeft = styled.Text`
   color: ${props => props.theme.primaryColor};
@@ -86,6 +94,10 @@ const Title = styled.Text`
 
 const Subtitle = styled.Text`
   font-size: 13px;
+`;
+const Infos = styled.View`
+display: flex;
+flex-direction: column;
 `;
 
 const DeleteIcon = styled.TouchableOpacity`
