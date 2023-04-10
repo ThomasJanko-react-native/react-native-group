@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
 import { setSelectedTask } from '../redux/actions/todo';
+import { ScrollView } from 'react-native'
 
 const TasksScreen = () => {
   const {t} = useTranslation();
@@ -35,8 +36,22 @@ const TasksScreen = () => {
   };
 
   const changeLanguage = () => {
-    const newLanguage = i18n.language === 'en' ? 'fr' : 'en';
-    i18n.changeLanguage(newLanguage);
+    switch (i18n.language) {
+      case 'en':
+        i18n.changeLanguage('fr');
+        break;
+      case 'fr':
+        i18n.changeLanguage('es');
+        break;
+      case 'es':
+        i18n.changeLanguage('de');
+        break;
+      case 'de':
+        i18n.changeLanguage('en');
+        break;
+      default:
+        i18n.changeLanguage('en');
+    }
     setUpdateCount(updateCount + 1);
   };
 
@@ -87,7 +102,7 @@ const TasksScreen = () => {
         <Description>{t('desc')}</Description>
       </WelcomeSection>
 
-      <FilterSection>
+      <FilterSection horizontal >
         <FilterButton
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
@@ -173,12 +188,12 @@ const Description = styled.Text`
   color: ${props => props.theme.textColor};
 `;
 
-const FilterSection = styled.View`
+const FilterSection = styled(ScrollView)`
   display: flex;
   flex-direction: row;
   margin: 40px 0;
-  justify-content: center;
-`;
+  // justify-content: center;
+`
 
 const FilterButton = styled.TouchableOpacity`
   margin: 5px;
