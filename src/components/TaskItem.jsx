@@ -39,7 +39,6 @@ const TaskItem = ({task}) => {
         {task.taskSteps.map(step => (
           <Subtitle>{step.content}</Subtitle>
         ))}
-         {/* <Subtitle>{task.taskName}</Subtitle> */}
       </TitleBlock>
       <CustomProgressBar />
     </Container>
@@ -92,12 +91,14 @@ const TitleBlock = styled.View`
 `;
 
 const Title = styled.Text`
+  text-align: center;
   font-size: 25px;
   color: ${props => props.theme.primaryColor};
 `;
 
 const Subtitle = styled.Text`
   font-size: 13px;
+  text-align: center;
 `;
 const Infos = styled.View`
 display: flex;
