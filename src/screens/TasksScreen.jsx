@@ -198,6 +198,7 @@ const FilterSection = styled(ScrollView)`
 const FilterButton = styled.TouchableOpacity`
   margin: 5px;
   padding: 10px 30px;
+  align-self: center;
   border-radius: 20px;
   background-color: ${props => (props.active ? '#eebc73' : '#F3E6DD')};
 `;
