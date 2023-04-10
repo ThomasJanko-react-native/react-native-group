@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import { useTranslation } from 'react-i18next';
+import { TouchableOpacity, View } from 'react-native'
 
 
 const TaskItem = ({task}) => {
@@ -32,10 +33,17 @@ const TaskItem = ({task}) => {
     });
   };
 
+  const handleTouchMove = event => {
+    event.preventDefault(); // prevent the default scrolling behavior
+  };
 
   return (
     <>
-    <Container onPress={handleTaskPress}>
+    <View>
+    <EyeIcon onPress={handleTaskPress}>
+      <Icon name="eye" size={30} color={theme == 'dark' ? 'white' : 'black'} />
+    </EyeIcon>
+    <Container>
       <Header>
         <Infos>
           <Date>{task.taskDate} </Date>
@@ -43,7 +51,7 @@ const TaskItem = ({task}) => {
         </Infos>
         <WeeksLeft>4 days left </WeeksLeft>
       </Header>
-      <TitleBlock>
+      <TitleBlock keyboardShouldPersistTaps='always'>
         <Title>{task.taskName}</Title>
         {task.taskSteps.map(step => (
           <Subtitle key={step.id}>{step.content}</Subtitle>
@@ -53,14 +61,15 @@ const TaskItem = ({task}) => {
     </Container>
     <DeleteIcon>
     <Icon name="md-trash" size={25} onPress={handleOnDelete}  color={theme == 'dark' ? 'white' : 'black'} />
-  </DeleteIcon>
+    </DeleteIcon>
 
   <FlashMessage position="top" floating />
+  </View>
   </>
   );
 };
 
-const Container = styled.TouchableOpacity`
+const Container = styled.View`
   width: 250px;
   height: 250px;
   background-color: ${props => props.theme.secondaryColor};
@@ -94,10 +103,8 @@ const WeeksLeft = styled.Text`
   font-weight: bold;
 `;
 
-const TitleBlock = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+const TitleBlock = styled.ScrollView`
+  height: 10px;
   color: ${props => props.theme.primaryColor};
 `;
 
@@ -110,6 +117,15 @@ const Title = styled.Text`
 const Subtitle = styled.Text`
   font-size: 13px;
   text-align: center;
+  width: 50%;
+  align-self: center;
+  color: ${props => props.theme.primaryColor};
+  background-color: ${props => props.theme.whiteColor};
+  font-size: 13px;
+  padding: 3px 8px;
+  margin: 2px 0;
+  border-radius: 50px;
+  font-weight: bold;
 `;
 const Infos = styled.View`
 display: flex;
@@ -117,6 +133,13 @@ flex-direction: column;
 `;
 
 const DeleteIcon = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
+`;
+
+const EyeIcon = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   justify-content: center;

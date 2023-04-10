@@ -17,6 +17,7 @@ const CustomProgressBar = () => {
 const ProgressBarContainer = styled.View`
   position: relative;
   width: 100%;
+  margin-top: 24px;
   margin-bottom: 20px;
   border-radius: 50px;
 `;

@@ -234,7 +234,7 @@ const Description = styled.Text`
 const FilterSection = styled(ScrollView)`
   display: flex;
   flex-direction: row;
-  margin: 40px 0;
+  margin: 20px 0;
   // justify-content: center;
 `
 

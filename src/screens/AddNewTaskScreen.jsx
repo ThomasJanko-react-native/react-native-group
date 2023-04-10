@@ -129,7 +129,7 @@ function AddNewTaskScreen() {
 
   return (
     <Container>
-      <ScrollView contentContainerStyle={{ minHeight: '100%' }}>
+      <ScrollView contentContainerStyle={{ minHeight: '100%' }} showsVerticalScrollIndicator={false} style={{height: '60%'}}>
 
       <Title>{t('taskTitle')} </Title>
       <Spacer height={60} />
@@ -165,8 +165,8 @@ function AddNewTaskScreen() {
       </TouchableOpacityCamera>
 
       <Spacer height={30} />
-      <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
       </ScrollView>
+      <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
 
       <FlashMessage position="top" floating />
     </Container>
@@ -176,7 +176,7 @@ function AddNewTaskScreen() {
 const Container = styled.View`
   margin: 20px;
   padding: 20px;
-  height: 100%;
+  height: 90%;
   position: relative;
 `;
 
