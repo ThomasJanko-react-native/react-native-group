@@ -251,6 +251,8 @@ const Badge = styled.Text`
   background-color:  ${props => props.theme.backgroundColor};
   color:  ${props => props.theme.textColor};
   position: absolute;
+  align-items: center;
+  text-align: center;
   border-radius: 20px;
   width: 20px;
   height: 20px;
