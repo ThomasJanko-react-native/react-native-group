@@ -2,14 +2,14 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import styled from 'styled-components/native';
 
-const CustomProgressBar = () => {
+const CustomProgressBar = ({level}) => {
   const {t} = useTranslation();
   return (
     <ProgressBarContainer>
       <ProgressBar />
-      <ProgressBarUpper />
+      <ProgressBarUpper level={level} />
       <ProgressLabel>{t('progress')}</ProgressLabel>
-      <Percentage>30%</Percentage>
+      <Percentage>{level}%</Percentage>
     </ProgressBarContainer>
   );
 };
@@ -33,7 +33,7 @@ const ProgressBarUpper = styled.View`
   height: 5px;
   position: absolute;
   background-color: ${props => props.theme.primaryColor};
-  width: 30%;
+  width: ${props => props.level}%;
   border-radius: 20px;
 `;
 
