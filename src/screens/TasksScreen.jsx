@@ -11,8 +11,8 @@ import ThemeSwitcher from '../components/ThemeSwitcher';
 import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
-import { setSelectedTask } from '../redux/actions/todo';
-import { ScrollView, Text } from 'react-native'
+import {setSelectedTask} from '../redux/actions/todo';
+import {ScrollView, Text} from 'react-native';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 const TasksScreen = () => {
@@ -32,15 +32,19 @@ const TasksScreen = () => {
   });
   useEffect(() => {
     initNotification();
-
-    console.log(tasksList);
   }, []);
 
   useEffect(() => {
-    const onGoingCount = tasksList.filter((todo) => todo.status === 'ongoing').length;
-    const pendingCount = tasksList.filter((todo) => todo.status === 'pending').length;
-    const completedCount = tasksList.filter((todo) => todo.status === 'completed').length;
-  
+    const onGoingCount = tasksList.filter(
+      todo => todo.status === 'ongoing',
+    ).length;
+    const pendingCount = tasksList.filter(
+      todo => todo.status === 'pending',
+    ).length;
+    const completedCount = tasksList.filter(
+      todo => todo.status === 'completed',
+    ).length;
+
     setTodoCounts({
       ongoing: onGoingCount,
       pending: pendingCount,
@@ -57,45 +61,45 @@ const TasksScreen = () => {
       case 'en':
         i18n.changeLanguage('fr');
         showMessage({
-          message: "language changed to French !",
-          type: "info",
+          message: 'language changed to French !',
+          type: 'info',
         });
         break;
       case 'fr':
         i18n.changeLanguage('es');
         showMessage({
-          message: "language changed to Spanish !",
-          type: "info",
+          message: 'language changed to Spanish !',
+          type: 'info',
         });
         break;
       case 'es':
         i18n.changeLanguage('de');
         showMessage({
-          message: "language changed to Deutch !",
-          type: "info",
+          message: 'language changed to Deutch !',
+          type: 'info',
         });
         break;
       case 'de':
         i18n.changeLanguage('en');
         showMessage({
-          message: "language changed to English !",
-          type: "info",
+          message: 'language changed to English !',
+          type: 'info',
         });
         break;
       default:
         i18n.changeLanguage('en');
         showMessage({
-          message: "language changed to English !",
-          type: "info",
+          message: 'language changed to English !',
+          type: 'info',
         });
     }
     setUpdateCount(updateCount + 1);
   };
 
   const handleAddNewTask = () => {
-    dispatch(setSelectedTask(null))
+    dispatch(setSelectedTask(null));
     navigation.navigate('AddNewTaskScreen');
-  }
+  };
 
   return (
     <Container>
@@ -139,12 +143,12 @@ const TasksScreen = () => {
         <Description>{t('desc')}</Description>
       </WelcomeSection>
 
-      <FilterSection horizontal >
+      <FilterSection horizontal>
         <FilterButton
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
           <FilterText active={activeFilter === 'ongoing'}>
-            {t('states.onGoing')} 
+            {t('states.onGoing')}
           </FilterText>
           <Badge> {todoCounts.ongoing}</Badge>
         </FilterButton>
@@ -152,7 +156,7 @@ const TasksScreen = () => {
           active={activeFilter === 'pending'}
           onPress={() => handleFilterPress('pending')}>
           <FilterText active={activeFilter === 'pending'}>
-            {t('states.pending')} 
+            {t('states.pending')}
           </FilterText>
           <Badge> {todoCounts.pending}</Badge>
         </FilterButton>
@@ -160,7 +164,7 @@ const TasksScreen = () => {
           active={activeFilter === 'completed'}
           onPress={() => handleFilterPress('completed')}>
           <FilterText active={activeFilter === 'completed'}>
-            {t('states.completed')} 
+            {t('states.completed')}
           </FilterText>
           <Badge> {todoCounts.completed}</Badge>
         </FilterButton>
@@ -177,7 +181,12 @@ const TasksScreen = () => {
         <Icon name="ios-add-circle" size={50} color="#EEBC73" />
       </Button>
 
-      <FlashMessage position="top" animated floating textStyle={{textAlign: 'center'}} />
+      <FlashMessage
+        position="top"
+        animated
+        floating
+        textStyle={{textAlign: 'center'}}
+      />
     </Container>
   );
 };
@@ -186,7 +195,6 @@ const Container = styled.View`
   flex: 1;
   background-color: ${props => props.theme.backgroundColor};
 `;
-
 
 const NavBar = styled.View`
   flex-direction: row;
@@ -236,7 +244,7 @@ const FilterSection = styled(ScrollView)`
   flex-direction: row;
   margin: 20px 0;
   // justify-content: center;
-`
+`;
 
 const FilterButton = styled.TouchableOpacity`
   margin: 5px;
@@ -248,8 +256,8 @@ const FilterButton = styled.TouchableOpacity`
 `;
 
 const Badge = styled.Text`
-  background-color:  ${props => props.theme.backgroundColor};
-  color:  ${props => props.theme.textColor};
+  background-color: ${props => props.theme.backgroundColor};
+  color: ${props => props.theme.textColor};
   position: absolute;
   align-items: center;
   text-align: center;

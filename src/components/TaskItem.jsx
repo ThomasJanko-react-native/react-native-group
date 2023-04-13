@@ -1,35 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
-import { setSelectedTask, removeTodo } from '../redux/actions/todo';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {setSelectedTask, removeTodo} from '../redux/actions/todo';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
-import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native'
-
+import {useTranslation} from 'react-i18next';
+import {TouchableOpacity, View} from 'react-native';
 
 const TaskItem = ({task}) => {
-
-  const selectedTask  = useSelector(state => state.rootReducer.selectedTask);
+  const selectedTask = useSelector(state => state.rootReducer.selectedTask);
   const theme = useSelector(state => state.themeReducer);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
 
-  
-  
   const handleTaskPress = () => {
-    dispatch(setSelectedTask(task))
+    dispatch(setSelectedTask(task));
     navigation.navigate('AddNewTaskScreen');
   };
 
   const handleOnDelete = () => {
     dispatch(removeTodo(task));
     showMessage({
-      message:  t('messages.taskDeleted'),
-      type: "info",
+      message: t('messages.taskDeleted'),
+      type: 'info',
     });
   };
 
@@ -37,35 +33,52 @@ const TaskItem = ({task}) => {
     event.preventDefault(); // prevent the default scrolling behavior
   };
 
+  const countProgressLevel = () => {
+    const all = task.taskSteps.length;
+    const checked = task.taskSteps.filter(task => task.checked).length;
+
+    const count = (checked * 100) / all;
+    return Math.ceil(count);
+  };
+
   return (
     <>
-    <View>
-    <EyeIcon onPress={handleTaskPress}>
-      <Icon name="eye" size={30} color={theme == 'dark' ? 'white' : 'black'} />
-    </EyeIcon>
-    <Container>
-      <Header>
-        <Infos>
-          <Date>{task.taskDate} </Date>
-          <Time>{task.taskTime} </Time>
-        </Infos>
-        <WeeksLeft>4 days left </WeeksLeft>
-      </Header>
-      <TitleBlock keyboardShouldPersistTaps='always'>
-        <Title>{task.taskName}</Title>
-        {task.taskSteps.map(step => (
-          <Subtitle key={step.id}>{step.content}</Subtitle>
-        ))}
-      </TitleBlock>
-      <CustomProgressBar />
-    </Container>
-    <DeleteIcon>
-    <Icon name="md-trash" size={25} onPress={handleOnDelete}  color={theme == 'dark' ? 'white' : 'black'} />
-    </DeleteIcon>
+      <View>
+        <EyeIcon onPress={handleTaskPress}>
+          <Icon
+            name="eye"
+            size={30}
+            color={theme == 'dark' ? 'white' : 'black'}
+          />
+        </EyeIcon>
+        <Container>
+          <Header>
+            <Infos>
+              <Date>{task.taskDate} </Date>
+              <Time>{task.taskTime} </Time>
+            </Infos>
+            <WeeksLeft>4 days left </WeeksLeft>
+          </Header>
+          <TitleBlock keyboardShouldPersistTaps="always">
+            <Title>{task.taskName}</Title>
+            {task.taskSteps.map(step => (
+              <Subtitle key={step.id}>{step.content}</Subtitle>
+            ))}
+          </TitleBlock>
+          <CustomProgressBar level={countProgressLevel()} />
+        </Container>
+        <DeleteIcon>
+          <Icon
+            name="md-trash"
+            size={25}
+            onPress={handleOnDelete}
+            color={theme == 'dark' ? 'white' : 'black'}
+          />
+        </DeleteIcon>
 
-  <FlashMessage position="top" floating />
-  </View>
-  </>
+        <FlashMessage position="top" floating />
+      </View>
+    </>
   );
 };
 
@@ -128,8 +141,8 @@ const Subtitle = styled.Text`
   font-weight: bold;
 `;
 const Infos = styled.View`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const DeleteIcon = styled.TouchableOpacity`

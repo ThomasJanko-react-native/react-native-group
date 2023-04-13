@@ -9,7 +9,7 @@ import {
   PermissionsAndroid,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addTodo, update_todo} from '../redux/actions/todo';
@@ -27,7 +27,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
-
+import CustomProgressBar from '../components/ProgressBar';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -46,8 +46,7 @@ function AddNewTaskScreen() {
   const theme = useSelector(state => state);
 
   useEffect(() => {
-    if(selectedTask?.task) {
-      
+    if (selectedTask?.task) {
       setTaskNameInput(selectedTask.task.taskName);
       setTaskSteps(selectedTask.task.taskSteps);
       setTaskTime(selectedTask.task.taskTime);
@@ -89,82 +88,99 @@ function AddNewTaskScreen() {
     });
   };
 
+  const defineTaskStatus = () => {
+    let status = 'pending';
+    let count = 0;
+
+    //completed if all the taskSteps's checked property is set to true
+    taskSteps.forEach(step => {
+      if (step.checked) {
+        status = 'ongoing';
+        count += 1;
+      }
+    });
+
+    //ongoing if one of the taskSteps's checked property is set to true
+    if (count === taskSteps.length) status = 'completed';
+
+    return status;
+  };
 
   const handleSaveTask = () => {
-    if(selectedTask?.task) {
-      dispatch(update_todo({
-        id: selectedTask.task.id,
-        taskName: taskNameInput,
-        taskSteps,
-        taskTime,
-        taskDate,
-        status: 'ongoing',
-      }))
+    if (selectedTask?.task) {
+      dispatch(
+        update_todo({
+          id: selectedTask.task.id,
+          taskName: taskNameInput,
+          taskSteps,
+          taskTime,
+          taskDate,
+          status: defineTaskStatus(),
+        }),
+      );
       showMessage({
         message: t('messages.taskUpdated'),
         type: 'success',
         duration: 2000,
       });
-
-    }
-    else{
-    dispatch(
-      addTodo({
-        taskName: taskNameInput,
-        taskSteps,
-        taskTime,
-        taskDate,
-        status: 'ongoing',
-        id: new Date().getTime(),
-      }),
-      showMessage({
-        message: t('messages.taskAdded'),
-        type: 'success',
-        duration: 2000,
-      }),
-    );
+    } else {
+      dispatch(
+        addTodo({
+          taskName: taskNameInput,
+          taskSteps,
+          taskTime,
+          taskDate,
+          status: defineTaskStatus(),
+          id: new Date().getTime(),
+        }),
+        showMessage({
+          message: t('messages.taskAdded'),
+          type: 'success',
+          duration: 2000,
+        }),
+      );
     }
     navigation.navigate('TaskScreen');
   };
 
   return (
     <Container>
-      <ScrollView contentContainerStyle={{ minHeight: '100%' }} showsVerticalScrollIndicator={false} style={{height: '60%'}}>
-
-      <Title>{t('taskTitle')} </Title>
-      <Spacer height={60} />
-      <AddTaskNameComp
-        taskNameInput={taskNameInput}
-        setTaskNameInput={setTaskNameInput}
-      />
-      <Spacer height={40} />
-      {taskSteps.map(input => (
-        <AddTaskStepComp
-          title={t('taskSteps')}
-          setTaskSteps={setTaskSteps}
-          data={input}
-          key={input.id}
+      <ScrollView
+        contentContainerStyle={{minHeight: '100%'}}
+        showsVerticalScrollIndicator={false}
+        style={{height: '60%'}}>
+        <Title>{t('taskTitle')} </Title>
+        <Spacer height={60} />
+        <AddTaskNameComp
+          taskNameInput={taskNameInput}
+          setTaskNameInput={setTaskNameInput}
         />
-      ))}
-      <Spacer height={10} />
-      <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
-      <Spacer height={30} />
-      <AddTaskTimeComp setTaskTime={setTaskTime} />
-      <Spacer height={30} />
-      <AddTaskDateComp setTaskDate={setTaskDate} />
-      <Spacer height={20} />
+        <Spacer height={40} />
+        {taskSteps.map(input => (
+          <AddTaskStepComp
+            title={t('taskSteps')}
+            setTaskSteps={setTaskSteps}
+            data={input}
+            key={input.id}
+          />
+        ))}
+        <Spacer height={10} />
+        <AddNewStepBtn setTaskSteps={setTaskSteps} count={taskSteps.length} />
+        <Spacer height={30} />
+        <AddTaskTimeComp setTaskTime={setTaskTime} />
+        <Spacer height={30} />
+        <AddTaskDateComp setTaskDate={setTaskDate} />
+        <Spacer height={20} />
 
-      {image && <ImagePhoto source={{uri: image}} />}
-      <TouchableOpacityCamera>
-        <Icon
-          name="camera"
-          size={30}
-          color={theme == 'dark' ? 'white' : 'black'}
-          onPress={takePicture}
-        />
-      </TouchableOpacityCamera>
-
-      <Spacer height={30} />
+        {image && <ImagePhoto source={{uri: image}} />}
+        <TouchableOpacityCamera>
+          <Icon
+            name="camera"
+            size={30}
+            color={theme == 'dark' ? 'white' : 'black'}
+            onPress={takePicture}
+          />
+        </TouchableOpacityCamera>
       </ScrollView>
       <CancelAndAddTaskBtns handleSaveTask={handleSaveTask} />
 
