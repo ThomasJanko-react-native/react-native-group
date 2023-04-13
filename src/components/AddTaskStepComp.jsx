@@ -2,17 +2,13 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
 
 function AddTaskStepComp({title, setTaskSteps, data}) {
-  const state = useSelector(state => state.rootReducer);
-
   const handleDelete = () => {
     setTaskSteps(prev => prev.filter(item => item.id !== data.id));
   };
 
   const handleCheck = () => {
-    console.log(state.selectedTask.task.taskSteps);
     setTaskSteps(prev => {
       const taskStep = [...prev];
       taskStep[data.id].checked = true;

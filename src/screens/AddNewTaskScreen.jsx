@@ -88,6 +88,24 @@ function AddNewTaskScreen() {
     });
   };
 
+  const defineTaskStatus = () => {
+    let status = 'pending';
+    let count = 0;
+
+    //completed if all the taskSteps's checked property is set to true
+    taskSteps.forEach(step => {
+      if (step.checked) {
+        status = 'ongoing';
+        count += 1;
+      }
+    });
+
+    //ongoing if one of the taskSteps's checked property is set to true
+    if (count === taskSteps.length) status = 'completed';
+
+    return status;
+  };
+
   const handleSaveTask = () => {
     if (selectedTask?.task) {
       dispatch(
@@ -97,7 +115,7 @@ function AddNewTaskScreen() {
           taskSteps,
           taskTime,
           taskDate,
-          status: 'ongoing',
+          status: defineTaskStatus(),
         }),
       );
       showMessage({
@@ -112,7 +130,7 @@ function AddNewTaskScreen() {
           taskSteps,
           taskTime,
           taskDate,
-          status: 'ongoing',
+          status: defineTaskStatus(),
           id: new Date().getTime(),
         }),
         showMessage({
