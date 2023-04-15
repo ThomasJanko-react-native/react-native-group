@@ -152,6 +152,7 @@ function AddNewTaskScreen() {
         <Title>{t('taskTitle')} </Title>
         <Spacer height={60} />
         <AddTaskNameComp
+          t={t}
           taskNameInput={taskNameInput}
           setTaskNameInput={setTaskNameInput}
         />
