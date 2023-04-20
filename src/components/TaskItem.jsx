@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import CustomProgressBar from './ProgressBar';
 import {setSelectedTask, removeTodo} from '../redux/actions/todo';
@@ -7,8 +7,8 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {useTranslation} from 'react-i18next';
-import {TouchableOpacity, View} from 'react-native';
-import { Share } from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {Share} from 'react-native';
 
 const TaskItem = ({task}) => {
   const selectedTask = useSelector(state => state.rootReducer.selectedTask);
@@ -45,7 +45,11 @@ const TaskItem = ({task}) => {
   const handleShare = async () => {
     try {
       const result = await Share.share({
-        message: `Task Name: ${task.taskName}\nTask Date: ${task.taskDate}\nTask Time: ${task.taskTime}\nTask Steps:\n${task.taskSteps.map((step) => `${step.content}\n`).join("")}`,
+        message: `Task Name: ${task.taskName}\nTask Date: ${
+          task.taskDate
+        }\nTask Time: ${task.taskTime}\nTask Steps:\n${task.taskSteps
+          .map(step => `${step.content}\n`)
+          .join('')}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -53,8 +57,6 @@ const TaskItem = ({task}) => {
         } else {
           // shared
         }
-        
-
       } else if (result.action === Share.dismissedAction) {
         // dismissed
       }
@@ -65,13 +67,21 @@ const TaskItem = ({task}) => {
 
   return (
     <>
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <EyeIcon onPress={handleTaskPress}>
           <Icon
             name="eye"
             size={30}
             color={theme == 'dark' ? 'white' : 'black'}
           />
+          <ShareIcon>
+            <Icon
+              name="share"
+              size={30}
+              onPress={handleShare}
+              color={theme == 'dark' ? 'white' : 'black'}
+            />
+          </ShareIcon>
         </EyeIcon>
         <Container>
           <Header>
@@ -89,6 +99,7 @@ const TaskItem = ({task}) => {
           </TitleBlock>
           <CustomProgressBar level={countProgressLevel()} />
         </Container>
+
         <DeleteIcon>
           <Icon
             name="md-trash"
@@ -97,16 +108,9 @@ const TaskItem = ({task}) => {
             color={theme == 'dark' ? 'white' : 'black'}
           />
         </DeleteIcon>
-        <ShareIcon>
-          <Icon
-            name="share"
-            size={25}
-            onPress={handleShare}
-            color={theme == 'dark' ? 'white' : 'black'}
-          />
-        </ShareIcon>
+
         <FlashMessage position="top" floating />
-      </View>
+      </ScrollView>
     </>
   );
 };
@@ -135,7 +139,14 @@ const Time = styled.Text`
   font-size: 12px;
   font-style: italic;
 `;
-
+const IconContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin: 10px 0;
+`;
 const WeeksLeft = styled.Text`
   color: ${props => props.theme.primaryColor};
   background-color: ${props => props.theme.whiteColor};
@@ -183,8 +194,8 @@ const DeleteIcon = styled.TouchableOpacity`
 const ShareIcon = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  margin: 9px 0;
+  position: absolute;
+  right: 0;
 `;
 
 const EyeIcon = styled.TouchableOpacity`
