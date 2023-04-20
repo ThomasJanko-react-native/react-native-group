@@ -11,7 +11,9 @@ import ThemeSwitcher from '../components/ThemeSwitcher';
 import {useTranslation} from 'react-i18next';
 import i18n from '../config/translations/translation';
 import {initNotification, onDisplayNotification} from '../config/messages';
-import { setSelectedTask } from '../redux/actions/todo';
+import {setSelectedTask} from '../redux/actions/todo';
+import {ScrollView, Text} from 'react-native';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 const TasksScreen = () => {
   const {t} = useTranslation();
@@ -23,27 +25,81 @@ const TasksScreen = () => {
   const [updateCount, setUpdateCount] = useState(0);
   const theme = useSelector(state => state.themeReducer);
   const tasksList = useSelector(state => state.rootReducer.todos);
-
+  const [todoCounts, setTodoCounts] = useState({
+    ongoing: 0,
+    pending: 0,
+    completed: 0,
+  });
   useEffect(() => {
     initNotification();
-
-    console.log(tasksList);
   }, []);
+
+  useEffect(() => {
+    const onGoingCount = tasksList.filter(
+      todo => todo.status === 'ongoing',
+    ).length;
+    const pendingCount = tasksList.filter(
+      todo => todo.status === 'pending',
+    ).length;
+    const completedCount = tasksList.filter(
+      todo => todo.status === 'completed',
+    ).length;
+
+    setTodoCounts({
+      ongoing: onGoingCount,
+      pending: pendingCount,
+      completed: completedCount,
+    });
+  }, [tasksList]);
 
   const handleFilterPress = filter => {
     setActiveFilter(filter);
   };
 
   const changeLanguage = () => {
-    const newLanguage = i18n.language === 'en' ? 'fr' : 'en';
-    i18n.changeLanguage(newLanguage);
+    switch (i18n.language) {
+      case 'en':
+        i18n.changeLanguage('fr');
+        showMessage({
+          message: 'language changed to French !',
+          type: 'info',
+        });
+        break;
+      case 'fr':
+        i18n.changeLanguage('es');
+        showMessage({
+          message: 'language changed to Spanish !',
+          type: 'info',
+        });
+        break;
+      case 'es':
+        i18n.changeLanguage('de');
+        showMessage({
+          message: 'language changed to Deutch !',
+          type: 'info',
+        });
+        break;
+      case 'de':
+        i18n.changeLanguage('en');
+        showMessage({
+          message: 'language changed to English !',
+          type: 'info',
+        });
+        break;
+      default:
+        i18n.changeLanguage('en');
+        showMessage({
+          message: 'language changed to English !',
+          type: 'info',
+        });
+    }
     setUpdateCount(updateCount + 1);
   };
 
   const handleAddNewTask = () => {
-    dispatch(setSelectedTask(null))
+    dispatch(setSelectedTask(null));
     navigation.navigate('AddNewTaskScreen');
-  }
+  };
 
   return (
     <Container>
@@ -87,13 +143,14 @@ const TasksScreen = () => {
         <Description>{t('desc')}</Description>
       </WelcomeSection>
 
-      <FilterSection>
+      <FilterSection horizontal>
         <FilterButton
           active={activeFilter === 'ongoing'}
           onPress={() => handleFilterPress('ongoing')}>
           <FilterText active={activeFilter === 'ongoing'}>
             {t('states.onGoing')}
           </FilterText>
+          <Badge> {todoCounts.ongoing}</Badge>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'pending'}
@@ -101,6 +158,7 @@ const TasksScreen = () => {
           <FilterText active={activeFilter === 'pending'}>
             {t('states.pending')}
           </FilterText>
+          <Badge> {todoCounts.pending}</Badge>
         </FilterButton>
         <FilterButton
           active={activeFilter === 'completed'}
@@ -108,6 +166,7 @@ const TasksScreen = () => {
           <FilterText active={activeFilter === 'completed'}>
             {t('states.completed')}
           </FilterText>
+          <Badge> {todoCounts.completed}</Badge>
         </FilterButton>
       </FilterSection>
 
@@ -121,6 +180,13 @@ const TasksScreen = () => {
       <Button onPress={handleAddNewTask}>
         <Icon name="ios-add-circle" size={50} color="#EEBC73" />
       </Button>
+
+      <FlashMessage
+        position="top"
+        animated
+        floating
+        textStyle={{textAlign: 'center'}}
+      />
     </Container>
   );
 };
@@ -173,18 +239,33 @@ const Description = styled.Text`
   color: ${props => props.theme.textColor};
 `;
 
-const FilterSection = styled.View`
+const FilterSection = styled(ScrollView)`
   display: flex;
   flex-direction: row;
-  margin: 40px 0;
-  justify-content: center;
+  margin: 20px 0;
+  // justify-content: center;
 `;
 
 const FilterButton = styled.TouchableOpacity`
   margin: 5px;
   padding: 10px 30px;
+  align-self: center;
   border-radius: 20px;
   background-color: ${props => (props.active ? '#eebc73' : '#F3E6DD')};
+  position: relative;
+`;
+
+const Badge = styled.Text`
+  background-color: ${props => props.theme.backgroundColor};
+  color: ${props => props.theme.textColor};
+  position: absolute;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  top: 1px;
+  right: 1px;
 `;
 
 const FilterText = styled.Text`

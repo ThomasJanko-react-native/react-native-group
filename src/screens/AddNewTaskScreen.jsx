@@ -8,6 +8,8 @@ import {
   Image,
   PermissionsAndroid,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addTodo, update_todo} from '../redux/actions/todo';
@@ -24,6 +26,9 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
+import CustomProgressBar from '../components/ProgressBar';
 
 function AddNewTaskScreen() {
   const {t} = useTranslation();
@@ -35,7 +40,8 @@ function AddNewTaskScreen() {
   const [taskSteps, setTaskSteps] = useState([
     {id: 0, checked: false, content: ''},
   ]);
-  const [taskTime, setTaskTime] = useState('');
+  const [taskTime, setTaskTime] = useState(moment(new Date()).format('h:mm A'));
+  const [taskDate, setTaskDate] = useState(new Date().toLocaleDateString());
 
   const [image, setImage] = useState(null);
   const theme = useSelector(state => state);
@@ -151,7 +157,7 @@ function AddNewTaskScreen() {
 const Container = styled.View`
   margin: 20px;
   padding: 20px;
-  height: 100%;
+  height: 90%;
   position: relative;
 `;
 

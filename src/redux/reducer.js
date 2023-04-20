@@ -13,6 +13,7 @@ const rootReducer = (state = initialState, action) => {
 
     //TODO
     case ADD_TODO:
+      console.log('time', action.payload.todo);
       return {
         ...state,
         todos: [...state.todos, action.payload.todo],
@@ -21,7 +22,7 @@ const rootReducer = (state = initialState, action) => {
     case REMOVE_TODO:
       return {
         ...state,
-        todos: state.todos.filter(t => t !== action.payload.todo),
+        todos: state.todos.filter(t => t.id !== action.payload.todo.id),
       };
 
     case UPDATE_TODO:

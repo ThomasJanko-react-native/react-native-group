@@ -5,6 +5,12 @@ module.exports = {
     desc: 'Here are the details of your all tasks. You can check details anytime and anywhere.',
     progress: 'Progress',
 
+    home:{
+      title: 'Smart Task Management',
+      description: 'Manage your tasks easily and efficiently',
+      continue: 'Continue',
+    },
+
     states: {
       onGoing: 'Ongoing',
       pending: 'Pending',
@@ -22,5 +28,12 @@ module.exports = {
       cancel: 'Cancel',
       save: 'Save',
     },
+
+    messages:{
+      taskAdded: 'Task added successfully !',
+      taskUpdated: 'Task updated successfully !',
+      taskDeleted: 'Task deleted successfully !',
+      taskCompleted: 'Task completed successfully !',
+    }
   },
 };

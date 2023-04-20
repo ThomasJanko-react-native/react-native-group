@@ -5,6 +5,11 @@ module.exports = {
     desc: "Ici se trouve le détails de vos tâches. Vous pouvez voir le détail à n'importe quel moment.",
     progress: 'Progression',
 
+    home:{
+      title: 'Gestion de tâches intelligente',
+      description: 'Gérez vos tâches facilement et efficacement',
+      continue: 'Continuer',
+    },
     states: {
       onGoing: 'En cours',
       pending: 'En attente',
@@ -22,5 +27,12 @@ module.exports = {
       cancel: 'Annuler',
       save: 'Enregistrer',
     },
+    messages:{
+      
+      taskAdded: 'Tâche ajoutée avec succès !',
+      taskUpdated: 'Tâche mise à jour avec succès !',
+      taskDeleted: 'Tâche supprimée avec succès !',
+      taskCompleted: 'Tâche terminée avec succès !',
+    }
   },
 };

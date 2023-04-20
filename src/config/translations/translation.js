@@ -4,6 +4,8 @@ import backend from "i18next-http-backend";
 import {Platform, NativeModules } from 'react-native';
 import en from './en';
 import fr from './fr';
+import es from './es';
+import de from './de';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getDeviceLang = () => {
@@ -52,6 +54,8 @@ const languageDetector = {
 const resources = {
     en,
     fr,
+    es,
+    de,
   };
   
   i18n
