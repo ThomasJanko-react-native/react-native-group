@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import {useTranslation} from 'react-i18next';
 import {TouchableOpacity, View} from 'react-native';
+import { Share } from 'react-native';
 
 const TaskItem = ({task}) => {
   const selectedTask = useSelector(state => state.rootReducer.selectedTask);
@@ -39,6 +40,27 @@ const TaskItem = ({task}) => {
 
     const count = (checked * 100) / all;
     return Math.ceil(count);
+  };
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `Task Name: ${task.taskName}\nTask Date: ${task.taskDate}\nTask Time: ${task.taskTime}\nTask Steps:\n${task.taskSteps.map((step) => `${step.content}\n`).join("")}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+        
+
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -75,7 +97,14 @@ const TaskItem = ({task}) => {
             color={theme == 'dark' ? 'white' : 'black'}
           />
         </DeleteIcon>
-
+        <ShareIcon>
+          <Icon
+            name="share"
+            size={25}
+            onPress={handleShare}
+            color={theme == 'dark' ? 'white' : 'black'}
+          />
+        </ShareIcon>
         <FlashMessage position="top" floating />
       </View>
     </>
@@ -150,6 +179,12 @@ const DeleteIcon = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   margin: 10px 0;
+`;
+const ShareIcon = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 9px 0;
 `;
 
 const EyeIcon = styled.TouchableOpacity`
